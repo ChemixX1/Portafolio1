@@ -16,13 +16,14 @@ import { baseMeta } from '~/utils/meta';
 import { Form, useActionData, useNavigation } from '@remix-run/react';
 import { json } from '@remix-run/cloudflare';
 import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses';
+import { useLanguage } from '~/components/language-provider';
 import styles from './contact.module.css';
 
 export const meta = () => {
   return baseMeta({
-    title: 'Contact',
+    title: 'Contacto',
     description:
-      'Send me a message if you’re interested in discussing a project or if you just want to say hi',
+      'Envíame un mensaje si te interesa hablar sobre un proyecto o simplemente para saludar',
   });
 };
 
@@ -50,19 +51,19 @@ export async function action({ context, request }) {
 
   // Handle input validation on the server
   if (!email || !EMAIL_PATTERN.test(email)) {
-    errors.email = 'Please enter a valid email address.';
+    errors.email = 'Por favor ingresa un correo electrónico válido.';
   }
 
   if (!message) {
-    errors.message = 'Please enter a message.';
+    errors.message = 'Por favor ingresa un mensaje.';
   }
 
   if (email.length > MAX_EMAIL_LENGTH) {
-    errors.email = `Email address must be shorter than ${MAX_EMAIL_LENGTH} characters.`;
+    errors.email = `El correo debe tener menos de ${MAX_EMAIL_LENGTH} caracteres.`;
   }
 
   if (message.length > MAX_MESSAGE_LENGTH) {
-    errors.message = `Message must be shorter than ${MAX_MESSAGE_LENGTH} characters.`;
+    errors.message = `El mensaje debe tener menos de ${MAX_MESSAGE_LENGTH} caracteres.`;
   }
 
   if (Object.keys(errors).length > 0) {
@@ -101,6 +102,7 @@ export const Contact = () => {
   const actionData = useActionData();
   const { state } = useNavigation();
   const sending = state === 'submitting';
+  const { lang } = useLanguage();
 
   return (
     <Section className={styles.contact}>
@@ -119,7 +121,7 @@ export const Contact = () => {
               as="h1"
               style={getDelay(tokens.base.durationXS, initDelay, 0.3)}
             >
-              <DecoderText text="Say hello" start={status !== 'exited'} delay={300} />
+              <DecoderText text={lang === 'en' ? 'Hello, write to me' : 'Hola, escríbeme'} start={status !== 'exited'} delay={300} />
             </Heading>
             <Divider
               className={styles.divider}
@@ -139,7 +141,7 @@ export const Contact = () => {
               data-status={status}
               style={getDelay(tokens.base.durationXS, initDelay)}
               autoComplete="email"
-              label="Your email"
+              label={lang === 'en' ? 'Your email' : 'Tu correo electrónico'}
               type="email"
               name="email"
               maxLength={MAX_EMAIL_LENGTH}
@@ -152,7 +154,7 @@ export const Contact = () => {
               data-status={status}
               style={getDelay(tokens.base.durationS, initDelay)}
               autoComplete="off"
-              label="Message"
+              label={lang === 'en' ? 'Message' : 'Mensaje'}
               name="message"
               maxLength={MAX_MESSAGE_LENGTH}
               {...message}
@@ -188,11 +190,11 @@ export const Contact = () => {
               style={getDelay(tokens.base.durationM, initDelay)}
               disabled={sending}
               loading={sending}
-              loadingText="Sending..."
+              loadingText={lang === 'en' ? 'Sending...' : 'Enviando...'}
               icon="send"
               type="submit"
             >
-              Send message
+              {lang === 'en' ? 'Send message' : 'Enviar mensaje'}
             </Button>
           </Form>
         )}
@@ -206,7 +208,7 @@ export const Contact = () => {
               className={styles.completeTitle}
               data-status={status}
             >
-              Message Sent
+              {lang === 'en' ? 'Message sent' : 'Mensaje enviado'}
             </Heading>
             <Text
               size="l"
@@ -215,7 +217,7 @@ export const Contact = () => {
               data-status={status}
               style={getDelay(tokens.base.durationXS)}
             >
-              I’ll get back to you within a couple days, sit tight
+              {lang === 'en' ? "I'll get back to you in a couple of days, thanks for writing!" : 'Te responderé en un par de días, ¡gracias por escribir!'}
             </Text>
             <Button
               secondary
@@ -226,7 +228,7 @@ export const Contact = () => {
               href="/"
               icon="chevron-right"
             >
-              Back to homepage
+              {lang === 'en' ? 'Back to home' : 'Volver al inicio'}
             </Button>
           </div>
         )}

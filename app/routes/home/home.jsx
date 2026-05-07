@@ -1,15 +1,7 @@
-import gamestackTexture2Large from '~/assets/gamestack-list-large.jpg';
-import gamestackTexture2Placeholder from '~/assets/gamestack-list-placeholder.jpg';
-import gamestackTexture2 from '~/assets/gamestack-list.jpg';
-import gamestackTextureLarge from '~/assets/gamestack-login-large.jpg';
-import gamestackTexturePlaceholder from '~/assets/gamestack-login-placeholder.jpg';
-import gamestackTexture from '~/assets/gamestack-login.jpg';
-import sliceTextureLarge from '~/assets/slice-app-large.jpg';
-import sliceTexturePlaceholder from '~/assets/slice-app-placeholder.jpg';
-import sliceTexture from '~/assets/slice-app.jpg';
-import sprTextureLarge from '~/assets/spr-lesson-builder-dark-large.jpg';
-import sprTexturePlaceholder from '~/assets/spr-lesson-builder-dark-placeholder.jpg';
-import sprTexture from '~/assets/spr-lesson-builder-dark.jpg';
+import mukaiTranslatorTexture from '~/assets/mukai-translator.png';
+import mukaiWeb1Texture from '~/assets/mukai-web-1.png';
+import mukaiWeb2Texture from '~/assets/mukai-web-2.png';
+import ritzyLandingTexture from '~/assets/ritzy-landing.png';
 import { Footer } from '~/components/footer';
 import { baseMeta } from '~/utils/meta';
 import { Intro } from './intro';
@@ -17,6 +9,7 @@ import { Profile } from './profile';
 import { ProjectSummary } from './project-summary';
 import { useEffect, useRef, useState } from 'react';
 import config from '~/config.json';
+import { useLanguage } from '~/components/language-provider';
 import styles from './home.module.css';
 
 // Prefetch draco decoader wasm
@@ -41,14 +34,37 @@ export const links = () => {
 
 export const meta = () => {
   return baseMeta({
-    title: 'Designer + Developer',
-    description: `Design portfolio of ${config.name} — a product designer working on web & mobile apps with a focus on motion, experience design, and accessibility.`,
+    title: 'Desarrollador + Diseñador',
+    description: `Portafolio de ${config.name} — desarrollador web enfocado en aplicaciones web y móviles con énfasis en animación, experiencia de usuario y accesibilidad.`,
   });
+};
+
+const CONTENT = {
+  es: {
+    p1title: 'Mukai Translate',
+    p1desc: 'Aplicación de escritorio en Python que traduce automáticamente manga, manhwa, comics y webtoons. Detecta texto con OCR, limpia el fondo con inpainting y traduce con GPT-4.1, Claude 4.5 o Gemini 2.5.',
+    p2title: 'MangaMukai — Plataforma de lectura',
+    p2desc: 'Plataforma web de manga y manhwa en espanol. React + TypeScript, Supabase auth, monedas virtuales, suscripcion premium y lector de capitulos.',
+    p3title: 'RitzyStoreX — Landing de streaming',
+    p3desc: 'Landing page de servicios de streaming con diseno moderno, animaciones fluidas y llamadas a la accion optimizadas para conversion.',
+    btn: 'Ver proyecto',
+  },
+  en: {
+    p1title: 'Mukai Translate',
+    p1desc: 'Desktop Python app that automatically translates manga, manhwa, comics and webtoons. Detects text with OCR, cleans the background with inpainting, and translates using GPT-4.1, Claude 4.5 or Gemini 2.5.',
+    p2title: 'MangaMukai — Reading Platform',
+    p2desc: 'Web platform for manga and manhwa in Spanish. React + TypeScript, Supabase auth, virtual coins, premium subscription and chapter reader.',
+    p3title: 'RitzyStoreX — Streaming Landing',
+    p3desc: 'Landing page for streaming services with modern design, smooth animations and conversion-optimized calls to action.',
+    btn: 'View project',
+  },
 };
 
 export const Home = () => {
   const [visibleSections, setVisibleSections] = useState([]);
   const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false);
+  const { lang } = useLanguage();
+  const t = CONTENT[lang];
   const intro = useRef();
   const projectOne = useRef();
   const projectTwo = useRef();
@@ -103,17 +119,17 @@ export const Home = () => {
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={1}
-        title="Designing the future of education"
-        description="Designing a platform to help educators build better online courseware"
-        buttonText="View project"
+        title={t.p1title}
+        description={t.p1desc}
+        buttonText={t.btn}
         buttonLink="/projects/smart-sparrow"
         model={{
           type: 'laptop',
-          alt: 'Smart Sparrow lesson builder',
+          alt: 'Mukai-Translator interfaz de traduccion de comics',
           textures: [
             {
-              srcSet: `${sprTexture} 1280w, ${sprTextureLarge} 2560w`,
-              placeholder: sprTexturePlaceholder,
+              srcSet: `${mukaiTranslatorTexture} 1280w, ${mukaiTranslatorTexture} 2560w`,
+              placeholder: mukaiTranslatorTexture,
             },
           ],
         }}
@@ -124,21 +140,21 @@ export const Home = () => {
         sectionRef={projectTwo}
         visible={visibleSections.includes(projectTwo.current)}
         index={2}
-        title="Video game progress tracking"
-        description="Design and development for a video game tracking app built in React Native"
-        buttonText="View website"
-        buttonLink="https://gamestack.hamishw.com"
+        title={t.p2title}
+        description={t.p2desc}
+        buttonText={t.btn}
+        buttonLink="/projects/slice"
         model={{
           type: 'phone',
-          alt: 'App login screen',
+          alt: 'MangaMukai plataforma de lectura de manga',
           textures: [
             {
-              srcSet: `${gamestackTexture} 375w, ${gamestackTextureLarge} 750w`,
-              placeholder: gamestackTexturePlaceholder,
+              srcSet: `${mukaiWeb1Texture} 375w, ${mukaiWeb1Texture} 750w`,
+              placeholder: mukaiWeb1Texture,
             },
             {
-              srcSet: `${gamestackTexture2} 375w, ${gamestackTexture2Large} 750w`,
-              placeholder: gamestackTexture2Placeholder,
+              srcSet: `${mukaiWeb2Texture} 375w, ${mukaiWeb2Texture} 750w`,
+              placeholder: mukaiWeb2Texture,
             },
           ],
         }}
@@ -148,17 +164,17 @@ export const Home = () => {
         sectionRef={projectThree}
         visible={visibleSections.includes(projectThree.current)}
         index={3}
-        title="Biomedical image collaboration"
-        description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
-        buttonText="View project"
-        buttonLink="/projects/slice"
+        title={t.p3title}
+        description={t.p3desc}
+        buttonText={t.btn}
+        buttonLink="/projects/volkihar-knight"
         model={{
           type: 'laptop',
-          alt: 'Annotating a biomedical image in the Slice app',
+          alt: 'RitzyStoreX landing page de servicios de streaming',
           textures: [
             {
-              srcSet: `${sliceTexture} 800w, ${sliceTextureLarge} 1920w`,
-              placeholder: sliceTexturePlaceholder,
+              srcSet: `${ritzyLandingTexture} 800w, ${ritzyLandingTexture} 1920w`,
+              placeholder: ritzyLandingTexture,
             },
           ],
         }}

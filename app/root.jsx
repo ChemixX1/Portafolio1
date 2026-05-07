@@ -11,6 +11,7 @@ import {
 } from '@remix-run/react';
 import { createCookieSessionStorage, json } from '@remix-run/cloudflare';
 import { ThemeProvider, themeStyles } from '~/components/theme-provider';
+import { LanguageProvider } from '~/components/language-provider';
 import GothamBook from '~/assets/fonts/gotham-book.woff2';
 import GothamMedium from '~/assets/fonts/gotham-medium.woff2';
 import { useEffect } from 'react';
@@ -39,8 +40,8 @@ export const links = () => [
     crossOrigin: '',
   },
   { rel: 'manifest', href: '/manifest.json' },
-  { rel: 'icon', href: '/favicon.ico' },
   { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
+  { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
   { rel: 'shortcut_icon', href: '/shortcut.png', type: 'image/png', sizes: '64x64' },
   { rel: 'apple-touch-icon', href: '/icon-256.png', sizes: '256x256' },
   { rel: 'author', href: '/humans.txt', type: 'text/plain' },
@@ -65,7 +66,7 @@ export const loader = async ({ request, context }) => {
   });
 
   const session = await getSession(request.headers.get('Cookie'));
-  const theme = session.get('theme') || 'dark';
+  const theme = session.get('theme') || 'light';
 
   return json(
     { canonicalUrl, theme },
@@ -118,19 +119,21 @@ export default function App() {
       </head>
       <body data-theme={theme}>
         <ThemeProvider theme={theme} toggleTheme={toggleTheme}>
-          <Progress />
-          <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
-            Skip to main content
-          </VisuallyHidden>
-          <Navbar />
-          <main
-            id="main-content"
-            className={styles.container}
-            tabIndex={-1}
-            data-loading={state === 'loading'}
-          >
-            <Outlet />
-          </main>
+          <LanguageProvider>
+            <Progress />
+            <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
+              Skip to main content
+            </VisuallyHidden>
+            <Navbar />
+            <main
+              id="main-content"
+              className={styles.container}
+              tabIndex={-1}
+              data-loading={state === 'loading'}
+            >
+              <Outlet />
+            </main>
+          </LanguageProvider>
         </ThemeProvider>
         <ScrollRestoration />
         <Scripts />

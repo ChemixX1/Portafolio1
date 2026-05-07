@@ -437,4 +437,79 @@
       grid-template-columns: 1fr;
     }
   }
+
+  .testimonial {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .testimonialInner {
+    max-width: var(--maxWidthM);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spaceL);
+  }
+
+  .testimonialQuoteMark {
+    width: 40px;
+    height: auto;
+    fill: var(--accent);
+    opacity: 0.6;
+  }
+
+  .testimonialQuote {
+    font-size: var(--fontSizeBodyL);
+    line-height: 1.7;
+    color: var(--textBody);
+    margin: 0;
+    font-style: italic;
+  }
+
+  .testimonialAuthor {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spaceXS);
+    padding-top: var(--spaceM);
+    border-top: 1px solid color-mix(in lab, var(--text) 15%, transparent);
+  }
+
+  .testimonialName {
+    font-size: var(--fontSizeBodyS);
+    font-weight: var(--fontWeightMedium);
+    color: var(--textBody);
+  }
+
+  .testimonialRole {
+    font-size: var(--fontSizeBodyS);
+    color: var(--textLight);
+  }
+
+  .testimonialContact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spaceM);
+    margin-top: var(--spaceXS);
+  }
+
+  .testimonialContactItem {
+    display: flex;
+    align-items: center;
+    gap: var(--spaceXS);
+    font-size: var(--fontSizeBodyS);
+    color: var(--textLight);
+    text-decoration: none;
+
+    & svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    &:is(a):hover {
+      color: var(--text);
+    }
+  }
 }

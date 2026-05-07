@@ -77,11 +77,12 @@
     &::after {
       content: '';
       position: absolute;
-      inset-inline-start: var(--spaceS);
-      inset-inline-end: var(--spaceS);
-      block-size: 4px;
+      top: var(--spaceS);
+      bottom: var(--spaceS);
+      width: 4px;
+      right: 0;
       background: var(--accent);
-      transform: scaleY(0) translateZ(0);
+      transform: scaleX(0) translateZ(0);
       transform-origin: bottom;
     }
 
@@ -94,7 +95,7 @@
     &:hover::after,
     &:active::after,
     &[aria-current='page']::after {
-      transform: scaleY(1) translateZ(0);
+      transform: scaleX(1) translateZ(0);
       transform-origin: top;
     }
   }
@@ -205,12 +206,12 @@
     &::after {
       content: '';
       position: absolute;
-      top: 50%;
+      bottom: var(--spaceS);
       right: var(--space3XL);
       left: var(--space3XL);
       height: 4px;
       background: var(--accent);
-      transform: scaleX(0) translateY(-1px);
+      transform: scaleX(0);
       transform-origin: right;
     }
 
@@ -223,7 +224,7 @@
     &:hover::after,
     &:active::after,
     &:focus::after {
-      transform: scaleX(1) translateY(-1px);
+      transform: scaleX(1);
       transform-origin: left;
     }
 

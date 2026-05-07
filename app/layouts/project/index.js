@@ -9,4 +9,5 @@ export {
   ProjectTextRow,
   ProjectSectionColumns,
   ProjectSection,
+  ProjectTestimonial,
 } from './project';

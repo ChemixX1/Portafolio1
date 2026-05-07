@@ -33,23 +33,35 @@ import {
   ProjectSectionContent,
   ProjectSectionHeading,
   ProjectSectionText,
+  ProjectTestimonial,
   ProjectTextRow,
 } from '~/layouts/project';
 import { Fragment } from 'react';
 import { media } from '~/utils/style';
 import { baseMeta } from '~/utils/meta';
+import { useLanguage } from '~/components/language-provider';
 import styles from './slice.module.css';
 
-const title = 'Biomedical image collaboration';
-const description =
-  'This project involved designing a better way for biomedical educators and learners to annotate digital slides together.';
-const roles = ['User Research', 'UX Design', 'Interface Design'];
+const title = {
+  es: 'MangaMukai — Plataforma de lectura de manga',
+  en: 'MangaMukai — Manga reading platform',
+};
+const description = {
+  es: 'Plataforma web completa de manga y manhwa en español con autenticación, monedas virtuales, suscripción premium y lector de capítulos. Construida con React, TypeScript y Supabase.',
+  en: 'Complete web platform for manga and manhwa in Spanish with authentication, virtual coins, premium subscription, and chapter reader. Built with React, TypeScript and Supabase.',
+};
+const roles = {
+  es: ['Desarrollo Frontend', 'React + TypeScript', 'Supabase Auth', 'Diseño UI/UX'],
+  en: ['Frontend Development', 'React + TypeScript', 'Supabase Auth', 'UI/UX Design'],
+};
 
 export const meta = () => {
-  return baseMeta({ title, description, prefix: 'Projects' });
+  return baseMeta({ title: title.es, description: description.es, prefix: 'Projects' });
 };
 
 export const Slice = () => {
+  const { lang } = useLanguage();
+
   return (
     <Fragment>
       <ProjectContainer className={styles.slice}>
@@ -62,10 +74,10 @@ export const Slice = () => {
           opacity={0.8}
         />
         <ProjectHeader
-          title={title}
-          description={description}
-          url="https://www.best.edu.au/s/q2yjjvl7?data=8%404!9%4020303!10%40-15087&version=1"
-          roles={roles}
+          title={title[lang]}
+          description={description[lang]}
+          url="https://github.com/ChemixX1"
+          roles={roles[lang]}
         />
         <ProjectSection padding="top">
           <ProjectSectionContent>
@@ -74,7 +86,7 @@ export const Slice = () => {
               width={800}
               height={500}
               placeholder={sliceAppPlaceholder}
-              alt="The Slice web application showing a selected user annotation."
+              alt={lang === 'en' ? 'Main interface of MangaMukai showing the manga catalog.' : 'Interfaz principal de MangaMukai mostrando el catálogo de manga.'}
               sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 90vw, 80vw`}
             />
           </ProjectSectionContent>
@@ -82,16 +94,18 @@ export const Slice = () => {
         <ProjectSection>
           <ProjectSectionColumns centered className={styles.columns}>
             <div className={styles.imagesText}>
-              <ProjectSectionHeading>Bringing it together</ProjectSectionHeading>
+              <ProjectSectionHeading>
+                {lang === 'en' ? 'Complete experience' : 'Experiencia completa'}
+              </ProjectSectionHeading>
               <ProjectSectionText>
-                Teachers needed a better way to create collaborative group activities by
-                annotating slides on Slice. Before starting this project, a layer could
-                only be annotated by a single user, making it difficult for learners to
-                work together.
+                {lang === 'en'
+                  ? 'Manga readers needed a Spanish platform that went beyond just showing images. MangaMukai integrates secure authentication with Supabase, user profiles, and a virtual coin system to access premium content.'
+                  : 'Los lectores de manga necesitaban una plataforma en español que fuera más allá de simplemente mostrar imágenes. MangaMukai integra autenticación segura con Supabase, perfiles de usuario y un sistema de monedas virtuales para acceder a contenido premium.'}
               </ProjectSectionText>
               <ProjectSectionText>
-                Our solution was to allow users to be invited to a layer, where they can
-                see others’ annotations and make their own.
+                {lang === 'en'
+                  ? 'The premium subscription unlocks early chapters and exclusive content, while the coin system allows individual purchases for those who prefer flexibility over a fixed subscription.'
+                  : 'La suscripción premium desbloquea capítulos anticipados y contenido exclusivo, mientras que el sistema de monedas permite compras individuales para quienes prefieren flexibilidad sobre una suscripción fija.'}
               </ProjectSectionText>
             </div>
             <div className={styles.sidebarImages}>
@@ -101,7 +115,7 @@ export const Slice = () => {
                 width={350}
                 height={750}
                 placeholder={sliceSidebarLayersPlaceholder}
-                alt="The layers sidebar design, now with user profiles."
+                alt={lang === 'en' ? 'User profile panel with virtual coin balance.' : 'Panel de perfil de usuario con saldo de monedas virtuales.'}
                 sizes={`(max-width: ${media.mobile}px) 200px, 343px`}
               />
               <Image
@@ -110,7 +124,7 @@ export const Slice = () => {
                 width={350}
                 height={750}
                 placeholder={sliceSidebarAnnotationsPlaceholder}
-                alt="Multiple user annotations on a shared layer."
+                alt={lang === 'en' ? 'Chapter reader view with navigation controls.' : 'Vista del lector de capítulos con controles de navegación.'}
                 sizes={`(max-width: ${media.mobile}px) 200px, 343px`}
               />
             </div>
@@ -119,14 +133,13 @@ export const Slice = () => {
         <ProjectSection light>
           <ProjectSectionContent>
             <ProjectTextRow>
-              <ProjectSectionHeading>Improving the experience</ProjectSectionHeading>
+              <ProjectSectionHeading>
+                {lang === 'en' ? 'Optimized reader' : 'Lector optimizado'}
+              </ProjectSectionHeading>
               <ProjectSectionText>
-                A problem we heard about often form users was that it was difficult to
-                find images they had previously seen or worked on. To solve this we added
-                a new tab that lists all previously annotated slides. In addition, we
-                added the ability to favorite slides, so if users find an interesting
-                slide they want to annotate later, they can easily save it to their
-                account.
+                {lang === 'en'
+                  ? 'The chapter reader was designed with user comfort in mind: support for vertical (webtoon) and horizontal modes, automatic reading progress saving, and seamless navigation between chapters without reloading the page. The reading history allows resuming exactly where the user left off.'
+                  : 'El lector de capítulos fue diseñado pensando en la comodidad del usuario: soporte para modo vertical (webtoon) y horizontal, guardado automático del progreso de lectura y navegación fluida entre capítulos sin recargar la página. El historial de lectura permite retomar exactamente donde el usuario lo dejó.'}
               </ProjectSectionText>
             </ProjectTextRow>
             <Image
@@ -134,7 +147,7 @@ export const Slice = () => {
               width={800}
               height={500}
               placeholder={sliceSlidesPlaceholder}
-              alt="The new My Slides tab in slice, showing annotated and favorited slides."
+              alt={lang === 'en' ? 'MangaMukai chapter reader with webtoon mode active.' : 'Lector de capítulos de MangaMukai con modo webtoon activo.'}
               sizes={`(max-width: ${media.mobile}px) 500px, (max-width: ${media.tablet}px) 800px, 1000px`}
             />
           </ProjectSectionContent>
@@ -159,19 +172,19 @@ export const Slice = () => {
                   width={440}
                   height={340}
                   placeholder={sliceAnnotationPlaceholder}
-                  alt="An annotation preview popover with statistics for shape perimeter and area."
+                  alt={lang === 'en' ? 'Virtual coins and premium subscription options panel.' : 'Panel de monedas virtuales y opciones de suscripción premium.'}
                   sizes={`(max-width: ${media.mobile}px) 584px, (max-width: ${media.tablet}px) 747px, 556px`}
                 />
               </div>
             </div>
             <div className={styles.gridText}>
-              <ProjectSectionHeading>Meaningful details</ProjectSectionHeading>
+              <ProjectSectionHeading>
+                {lang === 'en' ? 'Integrated monetization' : 'Monetización integrada'}
+              </ProjectSectionHeading>
               <ProjectSectionText>
-                Marking and annotating areas on high resolution biomedical images is the
-                core experience of the app, and it was easy to get lost or lose sense of
-                scale when zooming in on details. Adding measurements for the perimeter
-                and area of an annotation both helped to communicate the overall scale of
-                the image and how large the annotated feature is in comparison.
+                {lang === 'en'
+                  ? 'The virtual coin system and premium subscription coexist without friction. Users can buy coins for individual chapters or activate the premium plan for unlimited access. Supabase manages permissions in real-time without requiring a page reload.'
+                  : 'El sistema de monedas virtuales y la suscripción premium conviven sin fricciones. Los usuarios pueden comprar monedas para capítulos individuales o activar el plan premium para acceso ilimitado. Supabase gestiona los permisos en tiempo real sin requerir recarga de página.'}
               </ProjectSectionText>
             </div>
           </ProjectSectionContent>
@@ -179,13 +192,13 @@ export const Slice = () => {
         <ProjectSection>
           <ProjectSectionContent>
             <ProjectTextRow>
-              <ProjectSectionHeading>Project outcomes</ProjectSectionHeading>
+              <ProjectSectionHeading>
+                {lang === 'en' ? 'Project outcome' : 'Resultado del proyecto'}
+              </ProjectSectionHeading>
               <ProjectSectionText>
-                Real-time collaborative annotation facilitated better collaboration
-                between learners, and was much easier to run group exercises with the new
-                shared layers feature. Learners gave feedback that is was enjoyable to
-                work together and see what others were doing, and liked how interactive
-                and easy to use the application was.
+                {lang === 'en'
+                  ? 'MangaMukai offers a smooth reading experience with secure authentication, a catalog organized by genres and popularity, and a flexible monetization system that respects the user. The platform is built on React + TypeScript with Supabase as the backend, ensuring scalability and fast loading times in every reading session.'
+                  : 'MangaMukai ofrece una experiencia de lectura fluida con autenticación segura, catálogo organizado por géneros y popularidad, y un sistema de monetización flexible que respeta al usuario. La plataforma está construida sobre React + TypeScript con Supabase como backend, garantizando escalabilidad y tiempos de carga rápidos en cada sesión de lectura.'}
               </ProjectSectionText>
             </ProjectTextRow>
             <Image
@@ -193,11 +206,20 @@ export const Slice = () => {
               width={940}
               height={500}
               placeholder={sliceIrlPlaceholder}
-              alt="Students at the University of New South Wales using the new collaborative annotation features"
+              alt={lang === 'en' ? 'General view of MangaMukai showing the catalog and chapter reader.' : 'Vista general de MangaMukai mostrando el catálogo y el lector de capítulos.'}
             />
           </ProjectSectionContent>
         </ProjectSection>
       </ProjectContainer>
+      <ProjectTestimonial
+        quote={lang === 'en'
+          ? "The platform is exactly what I was looking for: a smooth and well-organized Spanish reading experience. The coin system allows me to pay only for what I read without monthly subscription commitments."
+          : "La plataforma es exactamente lo que buscaba: una experiencia de lectura en español fluida y bien organizada. El sistema de monedas me permite pagar solo lo que leo sin compromisos de suscripcion mensual."}
+        name={lang === 'en' ? "Client — MangaMukai Project" : "Cliente — Proyecto MangaMukai"}
+        role={lang === 'en' ? "Reader / manga platform" : "Lector / plataforma manga"}
+        phone="+51 999 000 222"
+        location={lang === 'en' ? "Lima, Peru" : "Lima, Peru"}
+      />
       <Footer />
     </Fragment>
   );

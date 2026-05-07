@@ -1,39 +1,38 @@
-__  __  __
-\ \ \ \ \/
- \ \/\ \
-  \/  \/
-
-The humans.txt file explains the team, technology,
-and graphic assets behind this site humanstxt.org.
+ _
+| |
+| |
+| |
+| |___
+|_____|
 
 _______________________________________________________________________________
 
-DESIGNER | デザイナー
+DISEÑADOR & DESARROLLADOR | デザイナー & デベロッパー
 
-Hamish Williams
-Hand crafted design & web development
+Jose Manuel Mejia Medina
+Desarrollo web con enfoque en UI/UX, animación y experiencia de usuario
 
-Design tools:
+Herramientas de diseño:
 Figma
 Photoshop
-Blender
 
-twitter.com/hamishmw
-github.com/hamishmw
+github.com/ChemixX1
+Lima, Peru
 
 _______________________________________________________________________________
 
-TECHNOLOGY | テクノロジー
+TECNOLOGÍA | テクノロジー
 
 React
 Remix
+TypeScript
+Supabase
 Three.js
 Framer Motion
 
 _______________________________________________________________________________
 
-FONTS | フォント
+FUENTES | フォント
 
 Gotham
 IPA Gothic Regular
-Hiragino Kaku Gothic W8

@@ -1,0 +1,323 @@
+.experience {
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100%;
+}
+
+/* ── Header ─────────────────────────────────── */
+
+.header {
+  width: 100%;
+  max-width: var(--maxWidthL);
+  padding-top: calc(var(--space5XL) + var(--spaceXL));
+  padding-bottom: var(--space3XL);
+  padding-left: var(--spaceOuter);
+  padding-right: var(--spaceOuter);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: var(--spaceXL);
+
+  @media (--mediaTablet) {
+    grid-template-columns: 1fr;
+    padding-top: calc(var(--space4XL) + var(--spaceL));
+    padding-bottom: var(--space2XL);
+  }
+
+  @media (--mediaMobile), (--mediaMobileLS) {
+    padding-top: var(--mobileNavOffset);
+    padding-bottom: var(--spaceXL);
+    gap: var(--spaceL);
+  }
+}
+
+.headerContent {
+  display: grid;
+  gap: var(--spaceL);
+  align-items: start;
+  max-width: 640px;
+}
+
+.heading {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.subtitle {
+  color: var(--textLight);
+  max-width: 520px;
+}
+
+.downloadBtn {
+  justify-self: start;
+  margin-top: var(--spaceS);
+}
+
+.barcode {
+  opacity: 0;
+  color: var(--textLight);
+  align-self: center;
+
+  &:global {
+    animation: fade-in 0.8s var(--bezierFastoutSlowin) forwards 0.4s;
+  }
+
+  @media (--mediaTablet) {
+    display: none;
+  }
+}
+
+/* ── Timeline ────────────────────────────────── */
+
+.timeline {
+  width: 100%;
+  max-width: var(--maxWidthL);
+  padding-left: var(--spaceOuter);
+  padding-right: var(--spaceOuter);
+  padding-bottom: var(--space5XL);
+
+  @media (--mediaMobile), (--mediaMobileLS) {
+    padding-left: var(--spaceM);
+    padding-right: var(--spaceM);
+    padding-bottom: var(--space3XL);
+  }
+}
+
+.timelineInner {
+  position: relative;
+  display: grid;
+  gap: 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 76px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in lab, var(--text) 15%, transparent) 8%,
+      color-mix(in lab, var(--text) 15%, transparent) 92%,
+      transparent 100%
+    );
+
+    @media (--mediaMobile), (--mediaMobileLS) {
+      left: 50px;
+    }
+  }
+}
+
+/* ── Experience card ─────────────────────────── */
+
+.item {
+  display: grid;
+  grid-template-columns: 152px 1fr;
+  gap: var(--space2XL);
+  padding: var(--space2XL) 0;
+  border-bottom: 1px solid color-mix(in lab, var(--text) 8%, transparent);
+  position: relative;
+  align-items: start;
+
+  &:first-child {
+    padding-top: var(--spaceL);
+  }
+
+  @media (--mediaTablet) {
+    grid-template-columns: 120px 1fr;
+    gap: var(--spaceXL);
+  }
+
+  @media (--mediaMobile), (--mediaMobileLS) {
+    grid-template-columns: 1fr;
+    gap: var(--spaceL);
+    padding: var(--spaceXL) 0;
+  }
+}
+
+/* ── Logos column (1 or 2 logos stacked) ────── */
+
+.logosColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spaceM);
+  padding-top: var(--spaceXS);
+}
+
+/* ── 3D Logo ─────────────────────────────────── */
+
+@property --borderAngle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes borderSpin {
+  to { --borderAngle: 360deg; }
+}
+
+.logoWrapper {
+  perspective: 800px;
+  perspective-origin: center center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoCard {
+  --borderAngle: 0deg;
+
+  width: 112px;
+  height: 112px;
+  border-radius: 20px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spaceS);
+  cursor: default;
+  will-change: transform;
+  position: relative;
+
+  @media (--mediaUseMotion) {
+    animation: borderSpin 3s linear infinite;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 21px;
+    background: conic-gradient(
+      from var(--borderAngle),
+      transparent 0%,
+      color-mix(in lab, var(--accent) 70%, transparent) 18%,
+      transparent 36%
+    );
+    z-index: -1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: 19px;
+    background: var(--backgroundLight);
+    z-index: 0;
+  }
+
+  @media (--mediaReduceMotion) {
+    border: 1px solid color-mix(in lab, var(--accent) 30%, color-mix(in lab, var(--text) 8%, transparent));
+  }
+
+  @media (--mediaTablet) {
+    width: 96px;
+    height: 96px;
+    border-radius: 16px;
+    padding: 6px;
+
+    &::before { border-radius: 17px; }
+    &::after  { border-radius: 15px; }
+  }
+
+  @media (--mediaMobile), (--mediaMobileLS) {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.logoCardLarge {
+  padding: 3px;
+}
+
+.logoImg {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.logoImgLarge {
+  width: 96%;
+  height: 96%;
+  max-width: 96%;
+  max-height: 96%;
+}
+
+/* ── Card content ────────────────────────────── */
+
+.itemContent {
+  display: grid;
+  gap: var(--spaceL);
+  align-content: start;
+}
+
+.itemMeta {
+  display: grid;
+  gap: var(--spaceS);
+}
+
+.periodRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spaceM);
+  flex-wrap: wrap;
+}
+
+.period {
+  color: var(--primary);
+  font-weight: var(--fontWeightMedium);
+}
+
+.dot {
+  color: color-mix(in lab, var(--text) 30%, transparent);
+}
+
+.location {
+  color: var(--textLight);
+}
+
+.company {
+  margin-top: var(--spaceXS);
+}
+
+.role {
+  color: var(--textLight);
+  font-style: italic;
+}
+
+/* ── Task list ───────────────────────────────── */
+
+.taskList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--spaceS);
+}
+
+.taskItem {
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  gap: var(--spaceM);
+  align-items: baseline;
+}
+
+.taskBullet {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  margin-top: 8px;
+  flex-shrink: 0;
+  justify-self: center;
+}

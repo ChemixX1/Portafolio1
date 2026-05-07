@@ -11,19 +11,32 @@ import { Suspense, lazy, useEffect, useState } from 'react';
 import { cssProps } from '~/utils/style';
 import config from '~/config.json';
 import { useHydrated } from '~/hooks/useHydrated';
+import { useLanguage } from '~/components/language-provider';
 import styles from './intro.module.css';
 
 const DisplacementSphere = lazy(() =>
   import('./displacement-sphere').then(module => ({ default: module.DisplacementSphere }))
 );
 
+const DISCIPLINES = {
+  es: ['Diseñador', 'Programador', 'Animador', 'Creativo', 'Innovador'],
+  en: ['Designer', 'Developer', 'Animator', 'Creative', 'Innovator'],
+};
+
+const ROLES = {
+  es: 'Desarrollador',
+  en: 'Developer',
+};
+
 export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
   const { theme } = useTheme();
-  const { disciplines } = config;
+  const { lang } = useLanguage();
+  const disciplines = DISCIPLINES[lang];
+  const role = ROLES[lang];
   const [disciplineIndex, setDisciplineIndex] = useState(0);
   const prevTheme = usePrevious(theme);
   const introLabel = [disciplines.slice(0, -1).join(', '), disciplines.slice(-1)[0]].join(
-    ', and '
+    lang === 'en' ? ' and ' : ' y '
   );
   const currentDiscipline = disciplines.find((item, index) => index === disciplineIndex);
   const titleId = `${id}-title`;
@@ -82,7 +95,7 @@ export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
                     data-status={status}
                     style={cssProps({ delay: tokens.base.durationXS })}
                   >
-                    {config.role}
+                    {role}
                   </span>
                   <span className={styles.line} data-status={status} />
                 </span>
@@ -118,7 +131,7 @@ export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
               data-hidden={scrollIndicatorHidden}
               onClick={handleScrollClick}
             >
-              <VisuallyHidden>Scroll to projects</VisuallyHidden>
+              <VisuallyHidden>{lang === 'en' ? 'Go to projects' : 'Ir a proyectos'}</VisuallyHidden>
             </RouterLink>
             <RouterLink
               to="/#project-1"
@@ -127,7 +140,7 @@ export function Intro({ id, sectionRef, scrollIndicatorHidden, ...rest }) {
               data-hidden={scrollIndicatorHidden}
               onClick={handleScrollClick}
             >
-              <VisuallyHidden>Scroll to projects</VisuallyHidden>
+              <VisuallyHidden>{lang === 'en' ? 'Go to projects' : 'Ir a proyectos'}</VisuallyHidden>
               <svg
                 aria-hidden
                 stroke="currentColor"

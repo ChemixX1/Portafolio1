@@ -10,14 +10,21 @@ import { cssProps, media, msToNum, numToMs } from '~/utils/style';
 import { NavToggle } from './nav-toggle';
 import { ThemeToggle } from './theme-toggle';
 import { navLinks, socialLinks } from './nav-data';
+import { useLanguage } from '~/components/language-provider';
 import config from '~/config.json';
 import styles from './navbar.module.css';
+
+const NAV_LABELS = {
+  es: ['Proyectos', 'Sobre mí', 'Experiencia', 'Contacto'],
+  en: ['Projects', 'About me', 'Experience', 'Contact'],
+};
 
 export const Navbar = () => {
   const [current, setCurrent] = useState();
   const [menuOpen, setMenuOpen] = useState(false);
   const [target, setTarget] = useState();
   const { theme } = useTheme();
+  const { lang } = useLanguage();
   const location = useLocation();
   const windowSize = useWindowSize();
   const headerRef = useRef();
@@ -155,7 +162,7 @@ export const Navbar = () => {
       <NavToggle onClick={() => setMenuOpen(!menuOpen)} menuOpen={menuOpen} />
       <nav className={styles.nav}>
         <div className={styles.navList}>
-          {navLinks.map(({ label, pathname }) => (
+          {navLinks.map(({ label, pathname }, i) => (
             <RouterLink
               unstable_viewTransition
               prefetch="intent"
@@ -166,7 +173,7 @@ export const Navbar = () => {
               aria-current={getCurrent(pathname)}
               onClick={handleNavItemClick}
             >
-              {label}
+              {NAV_LABELS[lang][i]}
             </RouterLink>
           ))}
         </div>
@@ -191,7 +198,7 @@ export const Navbar = () => {
                   ),
                 })}
               >
-                {label}
+                {NAV_LABELS[lang][index]}
               </RouterLink>
             ))}
             <NavbarIcons />
@@ -204,20 +211,31 @@ export const Navbar = () => {
   );
 };
 
-const NavbarIcons = ({ desktop }) => (
-  <div className={styles.navIcons}>
-    {socialLinks.map(({ label, url, icon }) => (
-      <a
-        key={label}
+const NavbarIcons = ({ desktop }) => {
+  const { lang, toggleLang } = useLanguage();
+  return (
+    <div className={styles.navIcons}>
+      {socialLinks.map(({ label, url, icon }) => (
+        <a
+          key={label}
+          data-navbar-item={desktop || undefined}
+          className={styles.navIconLink}
+          aria-label={label}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon className={styles.navIcon} icon={icon} />
+        </a>
+      ))}
+      <button
         data-navbar-item={desktop || undefined}
         className={styles.navIconLink}
-        aria-label={label}
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
+        aria-label={lang === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+        onClick={toggleLang}
       >
-        <Icon className={styles.navIcon} icon={icon} />
-      </a>
-    ))}
-  </div>
-);
+        <Icon className={styles.navIcon} icon="globe" />
+      </button>
+    </div>
+  );
+};

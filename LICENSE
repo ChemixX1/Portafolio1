@@ -1,21 +1,36 @@
-MIT License
+Attribution Required License
 
-Copyright (c) 2020 Jose Manuel Mejia Medina
+Copyright (c) 2020-2026 Jose Manuel Mejia Medina
+All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is granted to use, copy, modify, and distribute this website and
+its source code, in whole or in substantial part, subject to the following
+conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. Any website based on, derived from, or incorporating this website or a
+   substantial portion of its source code must display a clear and reasonably
+   prominent credit in a publicly visible part of the website.
+
+2. The credit must identify "Jose Manuel Mejia Medina" as the original creator
+   and include a working link to the creator's GitHub profile:
+   https://github.com/ChemixX1
+
+3. The credit must remain visible and legible to ordinary visitors. Placing it
+   only in source code, metadata, an inaccessible page, or behind a hidden
+   element does not satisfy this requirement.
+
+4. This copyright notice and license must be included in all copies or
+   substantial portions of the source code.
+
+Any use that does not comply with these conditions is unauthorized and
+constitutes a violation of this license. The copyright holder reserves the
+right to revoke permission and pursue any remedies available under applicable
+copyright law, including injunctive relief and monetary damages where allowed.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+AUTHOR OR COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM,
+OUT OF, OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.

@@ -14,7 +14,7 @@ import { useRef, useState } from 'react';
 import { cssProps, msToNum, numToMs } from '~/utils/style';
 import { baseMeta } from '~/utils/meta';
 import { useLoaderData } from '@remix-run/react';
-import { json } from '@remix-run/cloudflare';
+import { json } from '@remix-run/node';
 import { useLanguage } from '~/components/language-provider';
 import styles from './contact.module.css';
 
@@ -48,8 +48,8 @@ const SUCCESS_PARTICLES = Array.from({ length: SUCCESS_PARTICLE_COUNT }, (_, ind
 // the form is sent straight from the browser. The access key is public by
 // design (Web3Forms handles spam protection on their side), so it's safe to
 // expose it to the client through the loader.
-export async function loader({ context }) {
-  return json({ accessKey: context.cloudflare.env.WEB3FORMS_ACCESS_KEY });
+export async function loader() {
+  return json({ accessKey: process.env.WEB3FORMS_ACCESS_KEY });
 }
 
 export const Contact = () => {

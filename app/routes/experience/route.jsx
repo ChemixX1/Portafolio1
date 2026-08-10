@@ -1,17 +1,17 @@
-import { json } from '@remix-run/cloudflare';
+import { json } from '@remix-run/node';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { MDXProvider } from '@mdx-js/react';
 import { Post, postMarkdown } from '~/layouts/post';
 import { baseMeta } from '~/utils/meta';
 import { formatTimecode, readingTime } from '~/utils/timecode';
 
-export async function loader({ request, context }) {
+export async function loader({ request }) {
   const slug = request.url.split('/').at(-1);
   const module = await import(`../experience.${slug}.mdx`);
   const text = await import(`../experience.${slug}.mdx?raw`);
   const readTime = readingTime(text.default);
   const requestOrigin = new URL(request.url).origin;
-  const siteUrl = (context.cloudflare.env.SITE_URL || requestOrigin).replace(/\/$/, '');
+  const siteUrl = (process.env.SITE_URL || requestOrigin).replace(/\/$/, '');
   const ogImage = `${siteUrl}/static/${slug}-og.jpg`;
 
   return json({

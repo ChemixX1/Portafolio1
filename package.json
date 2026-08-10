@@ -4,7 +4,9 @@
   "description": "Portfolio site for Jose Manuel Mejia Medina",
   "repository": "https://github.com/ChemixX1/Portfolio1.git",
   "author": "Jose Manuel Mejia Medina",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "type": "module",
   "scripts": {
     "build": "remix vite:build",

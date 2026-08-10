@@ -264,7 +264,7 @@ export const MangaMukai = () => {
       <ProjectTestimonial
         quote={lang === 'en'
           ? "The website turned out great, completely different from what we had before. I really liked the modern result achieved, highly recommended."
-          : "La pagina quedó genial, totalmente distinto a lo que teniamos antes realmente me gustó mucho el resultado moderno que se logró, totalmente recomendado :)"}
+          : "La pagina quedó genial, totalmente distinto a lo que teniamos antes realmente me gustó mucho el resultado moderno que se logró, totalmente recomendado"}
         name={lang === 'en' ? "Erick Dan" : "Erick Dan"}
         occupation={lang === 'en' ? "Reader / manga platform" : "Dueño Mukai Translator - Manga Mukai.com"}
         phone="+51 926 615 198"

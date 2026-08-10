@@ -1,1 +1,3 @@
-export { VolkiharKnight as default, meta } from './volkihar-knight';
+import { redirect } from '@remix-run/cloudflare';
+
+export const loader = () => redirect('/projects/ritzystorex', 301);

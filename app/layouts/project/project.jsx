@@ -18,7 +18,10 @@ export function ProjectHeader({
   linkLabel = 'Visit website',
   url,
   roles,
+  visual,
   className,
+  detailsClassName,
+  visualClassName,
 }) {
   return (
     <Section className={classes(styles.header, className)} as="section">
@@ -26,7 +29,7 @@ export function ProjectHeader({
         className={styles.headerContent}
         style={cssProps({ initDelay: numToMs(initDelay) })}
       >
-        <div className={styles.details}>
+        <div className={classes(styles.details, detailsClassName)}>
           <Heading className={styles.title} level={2} as="h1">
             {title}
           </Heading>
@@ -45,7 +48,10 @@ export function ProjectHeader({
             </Button>
           )}
         </div>
-        {!!roles?.length && (
+        {!!visual && (
+          <div className={classes(styles.headerVisual, visualClassName)}>{visual}</div>
+        )}
+        {!visual && !!roles?.length && (
           <ul className={styles.meta}>
             {roles?.map((role, index) => (
               <li
@@ -129,9 +135,9 @@ export const ProjectBackground = ({ opacity = 0.7, className, ...rest }) => {
   );
 };
 
-export const ProjectImage = ({ className, alt, ...rest }) => (
+export const ProjectImage = ({ className, alt, reveal = true, ...rest }) => (
   <div className={classes(styles.image, className)}>
-    <Image reveal alt={alt} delay={300} {...rest} />
+    <Image reveal={reveal} alt={alt} delay={300} {...rest} />
   </div>
 );
 
@@ -187,7 +193,7 @@ export const ProjectSectionColumns = ({ className, centered, ...rest }) => (
   />
 );
 
-export const ProjectTestimonial = ({ quote, name, role, phone, location }) => (
+export const ProjectTestimonial = ({ quote, name, occupation, phone, location }) => (
   <ProjectSection light>
     <ProjectSectionContent>
       <div className={styles.testimonial}>
@@ -198,12 +204,20 @@ export const ProjectTestimonial = ({ quote, name, role, phone, location }) => (
           <blockquote className={styles.testimonialQuote}>{quote}</blockquote>
           <div className={styles.testimonialAuthor}>
             <span className={styles.testimonialName}>{name}</span>
-            {role && <span className={styles.testimonialRole}>{role}</span>}
+            {occupation && <span className={styles.testimonialRole}>{occupation}</span>}
           </div>
           <div className={styles.testimonialContact}>
             {phone && (
               <a href={`tel:${phone}`} className={styles.testimonialContactItem}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.06 6.06l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17Z" />
                 </svg>
                 {phone}
@@ -211,7 +225,15 @@ export const ProjectTestimonial = ({ quote, name, role, phone, location }) => (
             )}
             {location && (
               <span className={styles.testimonialContactItem}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
                   <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>

@@ -82,7 +82,7 @@
       width: 4px;
       right: 0;
       background: var(--accent);
-      transform: scaleX(0) translateZ(0);
+      transform: scaleY(0) translateZ(0);
       transform-origin: bottom;
     }
 
@@ -95,7 +95,7 @@
     &:hover::after,
     &:active::after,
     &[aria-current='page']::after {
-      transform: scaleX(1) translateZ(0);
+      transform: scaleY(1) translateZ(0);
       transform-origin: top;
     }
   }

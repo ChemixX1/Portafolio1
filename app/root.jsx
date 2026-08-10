@@ -6,6 +6,7 @@ import {
   ScrollRestoration,
   useFetcher,
   useLoaderData,
+  useLocation,
   useNavigation,
   useRouteError,
 } from '@remix-run/react';
@@ -50,8 +51,11 @@ export const links = () => [
 export const loader = async ({ request, context }) => {
   const { url } = request;
   const { pathname } = new URL(url);
-  const pathnameSliced = pathname.endsWith('/') ? pathname.slice(0, -1) : url;
-  const canonicalUrl = `${config.url}${pathnameSliced}`;
+  const requestOrigin = new URL(url).origin;
+  const siteUrl = (context.cloudflare.env.SITE_URL || requestOrigin).replace(/\/$/, '');
+  const normalizedPathname =
+    pathname !== '/' && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname;
+  const canonicalUrl = `${siteUrl}${normalizedPathname}`;
 
   const { getSession, commitSession } = createCookieSessionStorage({
     cookie: {
@@ -69,7 +73,7 @@ export const loader = async ({ request, context }) => {
   const theme = session.get('theme') || 'light';
 
   return json(
-    { canonicalUrl, theme },
+    { canonicalUrl, siteUrl, theme },
     {
       headers: {
         'Set-Cookie': await commitSession(session),
@@ -82,6 +86,8 @@ export default function App() {
   let { canonicalUrl, theme } = useLoaderData();
   const fetcher = useFetcher();
   const { state } = useNavigation();
+  const { pathname } = useLocation();
+  const hideNavbar = pathname === '/buen-dia';
 
   if (fetcher.formData?.has('theme')) {
     theme = fetcher.formData.get('theme');
@@ -124,7 +130,7 @@ export default function App() {
             <VisuallyHidden showOnFocus as="a" className={styles.skip} href="#main-content">
               Skip to main content
             </VisuallyHidden>
-            <Navbar />
+            {!hideNavbar && <Navbar />}
             <main
               id="main-content"
               className={styles.container}

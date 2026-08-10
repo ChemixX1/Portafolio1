@@ -289,6 +289,17 @@
     }
   }
 
+  .headerVisual {
+    min-width: 0;
+    align-self: stretch;
+    display: grid;
+    place-items: center;
+
+    @media (--mediaTablet) {
+      width: 100%;
+    }
+  }
+
   .meta {
     list-style-type: none;
     margin: 0;

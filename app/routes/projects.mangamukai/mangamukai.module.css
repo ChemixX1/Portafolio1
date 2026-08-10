@@ -1,0 +1,128 @@
+.project {
+  --primary: oklch(74% 0.18 350);
+  --accent: oklch(74% 0.18 350);
+  --imageTransitionColor: oklch(68% 0.2 350);
+}
+
+:global([data-theme='light']) .project {
+  --primary: oklch(56% 0.22 350);
+  --accent: oklch(56% 0.22 350);
+}
+
+.columns {
+  margin: 20px 0 60px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  margin: 40px 0;
+
+  @media (--mediaTablet) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gridImage {
+  display: grid;
+  grid-column: 1;
+  grid-row: 1;
+  align-items: center;
+}
+
+.slideshow {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+  max-width: 370px;
+  margin: 0 auto;
+
+  @media (--mediaTablet) {
+    max-width: 320px;
+  }
+}
+
+.slideshowItem {
+  grid-area: 1 / 1;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 1600ms ease-in-out;
+}
+
+.slideshowItem[data-active='true'] {
+  opacity: 1;
+}
+
+.gridText {
+  padding-top: 80px;
+
+  @media (--mediaDesktop) {
+    padding-top: 40px;
+  }
+
+  @media (--mediaTablet) {
+    padding-top: 0;
+  }
+}
+
+.sidebarImages {
+  display: grid;
+  grid-template-columns: repeat(6, [col] 1fr);
+  align-items: center;
+
+  @media (--mediaTablet) {
+    padding: 0 80px;
+    margin-top: 60px;
+  }
+
+  @media (--mediaMobile) {
+    padding: 0 20px;
+    margin-top: 40px;
+  }
+}
+
+.sidebarImagesText {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 10px;
+
+  @media (--mediaTablet) {
+    padding-right: 0;
+  }
+}
+
+.sidebarImage {
+  &:first-child {
+    grid-column: col 1 / span 4;
+    grid-row: 1;
+    position: relative;
+    top: 5%;
+    opacity: 0.4;
+  }
+
+  &:last-child {
+    grid-column: col 3 / span 4;
+    grid-row: 1;
+    position: relative;
+    top: -5%;
+  }
+}
+
+.resultSection {
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: var(--zIndex1);
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 2px;
+    background: var(--background);
+    pointer-events: none;
+  }
+}

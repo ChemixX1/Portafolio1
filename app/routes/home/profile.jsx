@@ -1,4 +1,4 @@
-import profileImg from '~/assets/profile-yo.png';
+import profileImg from '~/assets/home/profile.png';
 import { Button } from '~/components/button';
 import { DecoderText } from '~/components/decoder-text';
 import { Divider } from '~/components/divider';
@@ -17,36 +17,38 @@ import styles from './profile.module.css';
 const ProfileText = ({ visible, titleId, lang }) => (
   <Fragment>
     <Heading className={styles.title} data-visible={visible} level={3} id={titleId}>
-      <DecoderText text={lang === 'en' ? 'Hi, I am Jose' : 'Hola, soy Jose'} start={visible} delay={500} />
+      <DecoderText
+        text={lang === 'en' ? 'Hi, I am Jose' : 'Hola, soy Jose'}
+        start={visible}
+        delay={500}
+      />
     </Heading>
     {lang === 'en' ? (
       <>
         <Text className={styles.description} data-visible={visible} size="l" as="p">
-          I'm Jose Manuel Mejia Medina, 22 years old, living in Lima, Peru. I'm a web
+          I’m Jose Manuel Mejia Medina, 22 years old, living in Lima, Peru. I’m a web
           developer passionate about UI/UX design, animations, and creating memorable
           digital experiences. Check out the tools I use on my{' '}
           <Link href="/uses">tools page</Link>.
         </Text>
         <Text className={styles.description} data-visible={visible} size="l" as="p">
-          In my free time I enjoy exploring new technologies, building personal projects,
-          and{' '}
-          <Link href="/projects/volkihar-knight">experimenting with mods</Link>. I'm always
-          open to hearing about new projects, so feel free to reach out.
+          In my free time I enjoy exploring new technologies and building personal
+          projects. I’m always open to hearing about new projects, so feel free to reach
+          out.
         </Text>
       </>
     ) : (
       <>
         <Text className={styles.description} data-visible={visible} size="l" as="p">
-          Soy Jose Manuel Mejia Medina, tengo 22 años y vivo en Lima, Perú. Soy desarrollador
-          web apasionado por el diseño UI/UX, las animaciones y la creación de experiencias
-          digitales memorables. Si quieres conocer las herramientas que uso, visita mi{' '}
-          <Link href="/uses">página de herramientas</Link>.
+          Soy Jose Manuel Mejia Medina, tengo 22 años y vivo en Lima, Perú. Soy
+          desarrollador web apasionado por el diseño UI/UX, las animaciones y la creación
+          de experiencias digitales memorables. Si quieres conocer las herramientas que
+          uso, visita mi <Link href="/uses">página de herramientas</Link>.
         </Text>
         <Text className={styles.description} data-visible={visible} size="l" as="p">
-          En mi tiempo libre me gusta explorar nuevas tecnologías, crear proyectos personales
-          y{' '}
-          <Link href="/projects/volkihar-knight">experimentar con mods</Link>. Siempre estoy
-          abierto a escuchar sobre nuevos proyectos, así que no dudes en escribirme.
+          En mi tiempo libre me gusta explorar nuevas tecnologías y crear proyectos
+          personales. Siempre estoy abierto a escuchar sobre nuevos proyectos, así que no
+          dudes en escribirme.
         </Text>
       </>
     )}

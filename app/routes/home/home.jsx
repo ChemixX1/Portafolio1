@@ -1,7 +1,7 @@
-import mukaiTranslatorTexture from '~/assets/mukai-translator.png';
-import mukaiWeb1Texture from '~/assets/mukai-web-1.png';
-import mukaiWeb2Texture from '~/assets/mukai-web-2.png';
-import ritzyLandingTexture from '~/assets/ritzy-landing.png';
+import mukaiTranslatorTexture from '~/assets/home/mukai-translator-laptop.png';
+import mukaiWeb1Texture from '~/assets/home/mangamukai-phone-1.png';
+import mukaiWeb2Texture from '~/assets/home/mangamukai-phone-2.png';
+import ritzyLandingTexture from '~/assets/projects/ritzystorex/landing.png';
 import { Footer } from '~/components/footer';
 import { baseMeta } from '~/utils/meta';
 import { Intro } from './intro';
@@ -32,8 +32,9 @@ export const links = () => {
   ];
 };
 
-export const meta = () => {
+export const meta = ({ matches }) => {
   return baseMeta({
+    matches,
     title: 'Desarrollador + Diseñador',
     description: `Portafolio de ${config.name} — desarrollador web enfocado en aplicaciones web y móviles con énfasis en animación, experiencia de usuario y accesibilidad.`,
   });
@@ -41,21 +42,21 @@ export const meta = () => {
 
 const CONTENT = {
   es: {
-    p1title: 'Mukai Translate',
-    p1desc: 'Aplicación de escritorio en Python que traduce automáticamente manga, manhwa, comics y webtoons. Detecta texto con OCR, limpia el fondo con inpainting y traduce con GPT-4.1, Claude 4.5 o Gemini 2.5.',
-    p2title: 'MangaMukai — Plataforma de lectura',
-    p2desc: 'Plataforma web de manga y manhwa en espanol. React + TypeScript, Supabase auth, monedas virtuales, suscripcion premium y lector de capitulos.',
-    p3title: 'RitzyStoreX — Landing de streaming',
-    p3desc: 'Landing page de servicios de streaming con diseno moderno, animaciones fluidas y llamadas a la accion optimizadas para conversion.',
+    p1title: 'Mukai Translator',
+    p1desc: 'Herramienta de escritorio que agiliza la traduccion y edicion de manga con inteligencia artificial, reduciendo tareas repetitivas del flujo creativo.',
+    p2title: 'MangaMukai.com',
+    p2desc: 'Plataforma web para descubrir y leer manga en una experiencia rapida, responsive y organizada para todo tipo de lector.',
+    p3title: 'RitzyStoreX.com',
+    p3desc: 'Tienda digital responsive para explorar servicios, comparar opciones y contactar de forma directa desde cualquier dispositivo.',
     btn: 'Ver proyecto',
   },
   en: {
-    p1title: 'Mukai Translate',
-    p1desc: 'Desktop Python app that automatically translates manga, manhwa, comics and webtoons. Detects text with OCR, cleans the background with inpainting, and translates using GPT-4.1, Claude 4.5 or Gemini 2.5.',
-    p2title: 'MangaMukai — Reading Platform',
-    p2desc: 'Web platform for manga and manhwa in Spanish. React + TypeScript, Supabase auth, virtual coins, premium subscription and chapter reader.',
-    p3title: 'RitzyStoreX — Streaming Landing',
-    p3desc: 'Landing page for streaming services with modern design, smooth animations and conversion-optimized calls to action.',
+    p1title: 'Mukai Translator',
+    p1desc: 'Desktop tool that makes manga translation and editing faster with artificial intelligence while reducing repetitive creative tasks.',
+    p2title: 'MangaMukai.com',
+    p2desc: 'Web platform for discovering and reading manga through a fast, responsive experience organized for every kind of reader.',
+    p3title: 'RitzyStoreX.com',
+    p3desc: 'Responsive digital storefront for exploring services, comparing options and making direct contact from any device.',
     btn: 'View project',
   },
 };
@@ -122,7 +123,7 @@ export const Home = () => {
         title={t.p1title}
         description={t.p1desc}
         buttonText={t.btn}
-        buttonLink="/projects/smart-sparrow"
+        buttonLink="/projects/mukai-translator"
         model={{
           type: 'laptop',
           alt: 'Mukai-Translator interfaz de traduccion de comics',
@@ -143,7 +144,7 @@ export const Home = () => {
         title={t.p2title}
         description={t.p2desc}
         buttonText={t.btn}
-        buttonLink="/projects/slice"
+        buttonLink="/projects/mangamukai"
         model={{
           type: 'phone',
           alt: 'MangaMukai plataforma de lectura de manga',
@@ -167,7 +168,7 @@ export const Home = () => {
         title={t.p3title}
         description={t.p3desc}
         buttonText={t.btn}
-        buttonLink="/projects/volkihar-knight"
+        buttonLink="/projects/ritzystorex"
         model={{
           type: 'laptop',
           alt: 'RitzyStoreX landing page de servicios de streaming',

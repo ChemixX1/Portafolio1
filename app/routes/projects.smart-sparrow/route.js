@@ -1,1 +1,3 @@
-export { SmartSparrow as default, meta } from './smart-sparrow';
+import { redirect } from '@remix-run/cloudflare';
+
+export const loader = () => redirect('/projects/mukai-translator', 301);

@@ -212,6 +212,111 @@
   inset: 0;
 }
 
+.completeIcon {
+  /* Cyan accent in dark mode, black in light mode (overridden below) */
+  --successColor: var(--accent);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 88px;
+  margin-bottom: var(--spaceL);
+  opacity: 0;
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationL);
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: scale(0.8);
+  }
+
+  &[data-status='entering'],
+  &[data-status='entered'] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.completeCheckmark {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+:global([data-theme='light']) .completeIcon {
+  --successColor: var(--black);
+}
+
+.completeCircle,
+.completeCheck {
+  fill: none;
+  stroke: var(--successColor);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.completeParticle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background-color: var(--successColor);
+  opacity: 0;
+}
+
+@media (--mediaUseMotion) {
+  .completeCircle {
+    stroke-dasharray: 226;
+    stroke-dashoffset: 226;
+  }
+
+  .completeCheck {
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+  }
+
+  .completeIcon[data-status='entering'] .completeCircle,
+  .completeIcon[data-status='entered'] .completeCircle {
+    animation: draw-stroke var(--durationXL) var(--bezierFastoutSlowin) 100ms forwards;
+  }
+
+  .completeIcon[data-status='entering'] .completeCheck,
+  .completeIcon[data-status='entered'] .completeCheck {
+    animation: draw-stroke var(--durationM) var(--bezierFastoutSlowin) 360ms forwards;
+  }
+
+  .completeIcon[data-status='entering'] .completeParticle,
+  .completeIcon[data-status='entered'] .completeParticle {
+    animation: particle-burst var(--durationL) var(--bezierFastoutSlowin) var(--delay)
+      forwards;
+  }
+}
+
+@keyframes draw-stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes particle-burst {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--tx), var(--ty), 0) scale(0.3);
+  }
+}
+
 .completeTitle {
   margin: 0;
   transition-property: opacity;
@@ -273,6 +378,82 @@
     &:not(:hover) {
       transform: none;
     }
+  }
+}
+
+.completeNinja {
+  /* Suit follows the text color (white on dark, black on light) so it always
+     reads against the background; face opening uses the background color. */
+  --ninjaSuit: var(--text);
+  --ninjaFace: var(--background);
+
+  width: 92px;
+  margin-top: var(--spaceXL);
+  opacity: 0;
+  transition-property: opacity;
+  transition-timing-function: var(--bezierFastoutSlowin);
+  transition-duration: var(--durationL);
+  transition-delay: 900ms;
+
+  @media (--mediaUseMotion) {
+    transition-property: transform, opacity;
+    transform: translate3d(0, var(--space3XL), 0);
+  }
+
+  &[data-status='entered'] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ninjaSvg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (--mediaUseMotion) {
+  .ninjaTails {
+    transform-box: fill-box;
+    transform-origin: left center;
+  }
+
+  .ninjaThumb {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+  }
+
+  .completeNinja[data-status='entered'] .ninjaThumb {
+    animation: ninja-thumb 700ms var(--bezierFastoutSlowin) 1500ms backwards;
+  }
+
+  .completeNinja[data-status='entered'] .ninjaTails {
+    animation: ninja-flutter 1.6s ease-in-out 1600ms infinite;
+  }
+}
+
+@keyframes ninja-thumb {
+  0% {
+    transform: rotate(-22deg) translateY(5px);
+  }
+
+  60% {
+    transform: rotate(10deg) translateY(-2px);
+  }
+
+  100% {
+    transform: rotate(0) translateY(0);
+  }
+}
+
+@keyframes ninja-flutter {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(-12deg);
   }
 }
 

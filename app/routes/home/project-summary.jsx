@@ -1,4 +1,5 @@
 import { Button } from '~/components/button';
+import '@fontsource/goldman/400.css';
 import { Divider } from '~/components/divider';
 import { Heading } from '~/components/heading';
 import { deviceModels } from '~/components/model/device-models';

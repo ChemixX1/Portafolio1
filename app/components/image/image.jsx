@@ -12,6 +12,7 @@ export const Image = ({
   className,
   style,
   reveal,
+  transitionKey,
   delay = 0,
   raised,
   src: baseSrc,
@@ -50,6 +51,9 @@ export const Image = ({
         placeholder={placeholder}
         {...rest}
       />
+      {transitionKey && (
+        <span aria-hidden className={styles.themeTransition} key={transitionKey} />
+      )}
     </div>
   );
 };
@@ -71,6 +75,7 @@ const ImageElements = ({
   height,
   noPauseButton,
   cover,
+  sound = false,
   ...rest
 }) => {
   const reduceMotion = useReducedMotion();
@@ -78,6 +83,7 @@ const ImageElements = ({
   const [playing, setPlaying] = useState(!reduceMotion);
   const [videoSrc, setVideoSrc] = useState();
   const [videoInteracted, setVideoInteracted] = useState(false);
+  const [audioEnabled, setAudioEnabled] = useState(false);
   const placeholderRef = useRef();
   const videoRef = useRef();
   const isVideo = getIsVideo(src);
@@ -102,7 +108,7 @@ const ImageElements = ({
 
     const playVideo = () => {
       setPlaying(true);
-      videoRef.current.play();
+      videoRef.current.play()?.catch(() => setPlaying(false));
     };
 
     const pauseVideo = () => {
@@ -120,12 +126,44 @@ const ImageElements = ({
 
     if (videoInteracted) return;
 
-    if (!inViewport) {
+    if (!inViewport && !sound) {
       pauseVideo();
-    } else if (inViewport && !reduceMotion && play) {
+    } else if ((inViewport || sound) && (!reduceMotion || sound) && play) {
       playVideo();
     }
-  }, [inViewport, play, reduceMotion, restartOnPause, videoInteracted, videoSrc]);
+  }, [inViewport, play, reduceMotion, restartOnPause, sound, videoInteracted, videoSrc]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video || !videoSrc || !sound) return;
+
+    const enableSound = () => {
+      video.muted = false;
+      setAudioEnabled(true);
+      video
+        .play()
+        .then(() => setPlaying(true))
+        .catch(() => {
+          video.muted = true;
+          setAudioEnabled(false);
+          video
+            .play()
+            .then(() => setPlaying(true))
+            .catch(() => setPlaying(false));
+        });
+    };
+
+    window.addEventListener('pointerdown', enableSound);
+    window.addEventListener('keydown', enableSound);
+
+    return () => {
+      window.removeEventListener('pointerdown', enableSound);
+      window.removeEventListener('keydown', enableSound);
+      video.pause();
+      video.muted = true;
+    };
+  }, [sound, videoSrc]);
 
   const togglePlaying = event => {
     event.preventDefault();
@@ -134,7 +172,7 @@ const ImageElements = ({
 
     if (videoRef.current.paused) {
       setPlaying(true);
-      videoRef.current.play();
+      videoRef.current.play()?.catch(() => setPlaying(false));
     } else {
       setPlaying(false);
       videoRef.current.pause();
@@ -150,8 +188,10 @@ const ImageElements = ({
     >
       {isVideo && hasMounted && (
         <Fragment>
+          {/* Ambient and interface footage contains no spoken dialogue. */}
+          {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
           <video
-            muted
+            muted={!sound || !audioEnabled}
             loop
             playsInline
             className={styles.element}
@@ -188,7 +228,7 @@ const ImageElements = ({
           {...rest}
         />
       )}
-      {showPlaceholder && (
+      {showPlaceholder && placeholder && (
         <img
           aria-hidden
           className={styles.placeholder}

@@ -1,23 +1,17 @@
-import logoGobiernoRegional from '~/assets/logo-gobierno-regional.png';
-import logoChincheros from '~/assets/logo-chincheros.png';
-import logoAndahuaylas from '~/assets/logo-andahuaylas.png';
-import logoProcompite from '~/assets/logo-procompite.png';
+import logoGobiernoRegional from '~/assets/experience/logo-gobierno-regional.png';
+import logoChincheros from '~/assets/experience/logo-chincheros.png';
+import logoAndahuaylas from '~/assets/experience/logo-andahuaylas.png';
+import logoProcompite from '~/assets/experience/logo-procompite.png';
 import { Button } from '~/components/button';
-import { DecoderText } from '~/components/decoder-text';
-import { Divider } from '~/components/divider';
 import { Footer } from '~/components/footer';
 import { Heading } from '~/components/heading';
+import { Icon } from '~/components/icon';
 import { Section } from '~/components/section';
 import { Text } from '~/components/text';
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-  useReducedMotion,
-} from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLanguage } from '~/components/language-provider';
+import '@fontsource/sarpanch/600.css';
 import styles from './articles.module.css';
 
 const EXPERIENCES_ES = [
@@ -25,7 +19,7 @@ const EXPERIENCES_ES = [
     id: 1,
     company: 'Gobierno Regional de Apurímac',
     role: 'Asistente Técnico de Campo',
-    period: 'Ene 2019 – Abr 2019',
+    period: 'Enero 2019 — Abril 2019',
     location: 'Chincheros, Apurímac',
     logo: logoGobiernoRegional,
     tasks: [
@@ -39,7 +33,7 @@ const EXPERIENCES_ES = [
     id: 2,
     company: 'Municipalidad Provincial de Chincheros',
     role: 'Practicante Pre-Profesional',
-    period: 'Ene 2022 – Jul 2022',
+    period: 'Enero 2022 — Julio 2022',
     location: 'Chincheros, Apurímac',
     logo: logoChincheros,
     tasks: [
@@ -54,7 +48,7 @@ const EXPERIENCES_ES = [
     id: 3,
     company: 'Municipalidad Provincial de Andahuaylas',
     role: 'Asistente en Sanidad Animal',
-    period: 'Feb 2024 – Abr 2024',
+    period: 'Febrero 2024 — Abril 2024',
     location: 'Andahuaylas, Apurímac',
     logo: logoAndahuaylas,
     tasks: [
@@ -69,7 +63,7 @@ const EXPERIENCES_ES = [
     id: 4,
     company: 'Municipalidad Provincial de Chincheros',
     role: 'Asistente en ProCompite',
-    period: 'Ene 2025 – Mar 2025',
+    period: 'Enero 2025 — Marzo 2025',
     location: 'Chincheros, Apurímac',
     logo: logoChincheros,
     logo2: logoProcompite,
@@ -87,7 +81,7 @@ const EXPERIENCES_ES = [
     id: 5,
     company: 'Municipalidad Provincial de Chincheros',
     role: 'Practicante Pre-Profesional — Sanidad Vegetal',
-    period: 'Ene 2026 – Feb 2026',
+    period: 'Enero 2026 — Febrero 2026',
     location: 'Chincheros, Apurímac',
     logo: logoChincheros,
     tasks: [
@@ -102,7 +96,7 @@ const EXPERIENCES_ES = [
     id: 6,
     company: 'Municipalidad Provincial de Chincheros',
     role: 'Responsable de Sanidad Vegetal',
-    period: 'Mar 2026 – May 2026',
+    period: 'Marzo 2026 — Mayo 2026',
     location: 'Chincheros, Apurímac',
     logo: logoChincheros,
     tasks: [
@@ -119,7 +113,7 @@ const EXPERIENCES_EN = [
     id: 1,
     company: 'Gobierno Regional de Apurímac',
     role: 'Technical Field Assistant',
-    period: 'Jan 2019 – Apr 2019',
+    period: 'January 2019 — April 2019',
     location: 'Chincheros, Apurímac',
     logo: logoGobiernoRegional,
     tasks: [
@@ -133,7 +127,7 @@ const EXPERIENCES_EN = [
     id: 2,
     company: 'Municipalidad Provincial de Chincheros',
     role: 'Pre-Professional Intern',
-    period: 'Jan 2022 – Jul 2022',
+    period: 'January 2022 — July 2022',
     location: 'Chincheros, Apurímac',
     logo: logoChincheros,
     tasks: [
@@ -148,7 +142,7 @@ const EXPERIENCES_EN = [
     id: 3,
     company: 'Municipalidad Provincial de Andahuaylas',
     role: 'Animal Health Assistant',
-    period: 'Feb 2024 – Apr 2024',
+    period: 'February 2024 — April 2024',
     location: 'Andahuaylas, Apurímac',
     logo: logoAndahuaylas,
     tasks: [
@@ -163,7 +157,7 @@ const EXPERIENCES_EN = [
     id: 4,
     company: 'Municipalidad Provincial de Chincheros',
     role: 'ProCompite Assistant',
-    period: 'Jan 2025 – Mar 2025',
+    period: 'January 2025 — March 2025',
     location: 'Chincheros, Apurímac',
     logo: logoChincheros,
     logo2: logoProcompite,
@@ -181,7 +175,7 @@ const EXPERIENCES_EN = [
     id: 5,
     company: 'Municipalidad Provincial de Chincheros',
     role: 'Pre-Professional Intern — Plant Health',
-    period: 'Jan 2026 – Feb 2026',
+    period: 'January 2026 — February 2026',
     location: 'Chincheros, Apurímac',
     logo: logoChincheros,
     tasks: [
@@ -196,7 +190,7 @@ const EXPERIENCES_EN = [
     id: 6,
     company: 'Municipalidad Provincial de Chincheros',
     role: 'Plant Health Manager',
-    period: 'Mar 2026 – May 2026',
+    period: 'March 2026 — May 2026',
     location: 'Chincheros, Apurímac',
     logo: logoChincheros,
     tasks: [
@@ -208,127 +202,217 @@ const EXPERIENCES_EN = [
   },
 ];
 
-function Logo3D({ src, alt, reduceMotion, large = false }) {
-  const ref = useRef(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+const PERIOD_META = {
+  1: {
+    year: '2019',
+    es: 'Enero — Abril',
+    en: 'January — April',
+  },
+  2: {
+    year: '2022',
+    es: 'Enero — Julio',
+    en: 'January — July',
+  },
+  3: {
+    year: '2024',
+    es: 'Febrero — Abril',
+    en: 'February — April',
+  },
+  4: {
+    year: '2025',
+    es: 'Enero — Marzo',
+    en: 'January — March',
+  },
+  5: {
+    year: '2026',
+    es: 'Enero — Febrero',
+    en: 'January — February',
+  },
+  6: {
+    year: '2026',
+    es: 'Marzo — Mayo',
+    en: 'March — May',
+  },
+};
 
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [14, -14]), {
-    stiffness: 180,
-    damping: 22,
-  });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-14, 14]), {
-    stiffness: 180,
-    damping: 22,
-  });
-  function handleMouseMove(e) {
-    if (reduceMotion || !ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
-  }
-
-  function handleMouseLeave() {
-    mouseX.set(0);
-    mouseY.set(0);
-  }
-
-  return (
-    <div className={styles.logoWrapper}>
-      <motion.div
-        ref={ref}
-        className={large ? `${styles.logoCard} ${styles.logoCardLarge}` : styles.logoCard}
-        style={{
-          rotateX: reduceMotion ? 0 : rotateX,
-          rotateY: reduceMotion ? 0 : rotateY,
-        }}
-        animate={reduceMotion ? {} : { y: [0, -10, 0] }}
-        transition={{
-          y: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
-        }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-      >
-        <img src={src} alt={alt} className={large ? `${styles.logoImg} ${styles.logoImgLarge}` : styles.logoImg} />
-      </motion.div>
-    </div>
-  );
-}
-
-
-function ExperienceItem({ company, role, period, location, logo, logo2, tasks, index }) {
-  const reduceMotion = useReducedMotion();
-  const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+function ExperienceCard({ exp, index, onOpen, reduceMotion, lang }) {
+  const period = PERIOD_META[exp.id];
+  const isEnglish = lang === 'en';
 
   return (
-    <motion.div
-      ref={ref}
-      className={styles.item}
-      initial={{ opacity: 0, y: 40 }}
-      animate={visible ? { opacity: 1, y: 0 } : {}}
+    <motion.article
+      className={styles.card}
+      initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '0px 0px -60px 0px' }}
       transition={{
-        duration: 0.7,
-        delay: 0.05,
+        duration: 0.55,
+        delay: Math.min(index * 0.07, 0.28),
         ease: [0.4, 0, 0.2, 1],
       }}
     >
-      <div className={styles.logosColumn}>
-        <Logo3D src={logo} alt={company} reduceMotion={reduceMotion} />
-        {logo2 && <Logo3D src={logo2} alt="ProCompite" reduceMotion={reduceMotion} large />}
+      <div className={styles.dateBlock} aria-label={exp.period}>
+        <span className={styles.dateMonths}>{period?.[lang]}</span>
+        <strong className={styles.dateYear}>{period?.year}</strong>
       </div>
-      <div className={styles.itemContent}>
-        <div className={styles.itemMeta}>
-          <div className={styles.periodRow}>
-            <Divider notchWidth="40px" notchHeight="5px" />
-            <Text size="s" className={styles.period}>{period}</Text>
-            <Text size="s" className={styles.dot} aria-hidden>·</Text>
-            <Text size="s" className={styles.location}>{location}</Text>
+
+      <span className={styles.timelineNode} aria-hidden>
+        <i />
+      </span>
+
+      <div className={styles.cardBody}>
+        <span className={styles.locationBadge}>{exp.location}</span>
+
+        <div className={styles.cardIdentity}>
+          <div className={styles.cardLogos}>
+            <img src={exp.logo} alt="" className={styles.cardLogo} />
+            {exp.logo2 && <img src={exp.logo2} alt="" className={styles.cardLogo} />}
           </div>
-          <Heading level={4} as="h2" className={styles.company}>{company}</Heading>
-          <Text size="l" className={styles.role}>{role}</Text>
+          <div>
+            <Heading level={4} as="h2" className={styles.cardRole}>
+              {exp.role}
+            </Heading>
+            <p className={styles.cardCompany}>{exp.company}</p>
+          </div>
         </div>
+
+        <button
+          type="button"
+          className={styles.cardAction}
+          onClick={() => onOpen(exp)}
+          aria-haspopup="dialog"
+        >
+          <span>{isEnglish ? 'View responsibilities' : 'Ver responsabilidades'}</span>
+          <Icon icon="arrow-right" />
+        </button>
+      </div>
+    </motion.article>
+  );
+}
+
+function ExperienceModal({ exp, onClose, lang, reduceMotion }) {
+  const closeRef = useRef(null);
+
+  useEffect(() => {
+    closeRef.current?.focus();
+
+    const handleKeyDown = event => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      className={styles.overlay}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      onClick={onClose}
+      role="presentation"
+    >
+      <motion.div
+        className={styles.modal}
+        layoutId={reduceMotion ? undefined : `exp-card-${exp.id}`}
+        initial={reduceMotion ? { opacity: 0 } : undefined}
+        animate={reduceMotion ? { opacity: 1 } : undefined}
+        exit={reduceMotion ? { opacity: 0 } : undefined}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        onClick={event => event.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="experience-modal-title"
+      >
+        <button
+          ref={closeRef}
+          type="button"
+          className={styles.modalClose}
+          onClick={onClose}
+          aria-label={lang === 'en' ? 'Close' : 'Cerrar'}
+        >
+          <Icon icon="close" />
+        </button>
+        <div className={styles.modalHeader}>
+          <div className={styles.modalLogos}>
+            <img src={exp.logo} alt={exp.company} className={styles.modalLogo} />
+            {exp.logo2 && (
+              <img src={exp.logo2} alt="ProCompite" className={styles.modalLogo} />
+            )}
+          </div>
+          <div className={styles.modalMeta}>
+            <span className={styles.modalPeriod}>
+              {exp.period} · {exp.location}
+            </span>
+            <Heading level={4} as="h2" id="experience-modal-title">
+              {exp.company}
+            </Heading>
+            <Text size="l" as="p" className={styles.modalRole}>
+              {exp.role}
+            </Text>
+          </div>
+        </div>
+        <span className={styles.modalLabel} role="heading" aria-level={3}>
+          {lang === 'en' ? 'Key activities' : 'Actividades realizadas'}
+        </span>
         <ul className={styles.taskList}>
-          {tasks.map((task, i) => (
-            <li key={i} className={styles.taskItem}>
-              <span className={styles.taskBullet} aria-hidden />
-              <Text size="s" as="span">{task}</Text>
-            </li>
+          {exp.tasks.map((task, i) => (
+            <motion.li
+              key={i}
+              className={styles.taskItem}
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.4,
+                delay: 0.15 + i * 0.05,
+                ease: [0.4, 0, 0.2, 1],
+              }}
+            >
+              <span className={styles.taskIndex} aria-hidden>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <Text size="s" as="span">
+                {task}
+              </Text>
+            </motion.li>
           ))}
         </ul>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
 
 export function Experience() {
   const { lang } = useLanguage();
-  const experiences = lang === 'en' ? EXPERIENCES_EN : EXPERIENCES_ES;
+  const reduceMotion = useReducedMotion();
+  const [selected, setSelected] = useState(null);
+  const experiences = (lang === 'en' ? EXPERIENCES_EN : EXPERIENCES_ES).slice().reverse();
+
+  const handleClose = useCallback(() => setSelected(null), []);
+
+  const selectedExp = selected
+    ? experiences.find(exp => exp.id === selected.id) ?? selected
+    : null;
+
   return (
     <article className={styles.experience}>
       <Section className={styles.header}>
         <div className={styles.headerContent}>
-          <Heading className={styles.heading} level={5} as="h1">
-            <DecoderText text={lang === 'en' ? 'Experience' : 'Experiencia'} />
+          <Heading className={styles.heading} level={4} as="h1">
+            <span>{lang === 'en' ? 'Professional' : 'Experiencia'}</span>
+            <span>{lang === 'en' ? 'experience' : 'profesional'}</span>
           </Heading>
           <Text size="l" className={styles.subtitle} as="p">
             {lang === 'en'
-              ? 'Professional career in public institutions of Apurímac, focused on agricultural management, health, and territorial development.'
-              : 'Trayectoria profesional en instituciones públicas de Apurímac, con enfoque en gestión agrícola, sanidad y desarrollo territorial.'}
+              ? 'A career connecting public management, productive development and technology to organize information, coordinate teams and create measurable impact.'
+              : 'Una trayectoria que conecta gestión pública, desarrollo productivo y tecnología para organizar información, coordinar equipos y generar impacto medible.'}
           </Text>
           <Button
             secondary
@@ -342,35 +426,52 @@ export function Experience() {
             {lang === 'en' ? 'Download CV' : 'Descargar CV'}
           </Button>
         </div>
-        <Barcode className={styles.barcode} />
+        <div
+          className={styles.headerStats}
+          aria-label={lang === 'en' ? 'Career highlights' : 'Resumen profesional'}
+        >
+          <div>
+            <strong>06</strong>
+            <span>{lang === 'en' ? 'roles' : 'experiencias'}</span>
+          </div>
+          <div>
+            <strong>25+</strong>
+            <span>{lang === 'en' ? 'associations' : 'asociaciones'}</span>
+          </div>
+          <div>
+            <strong>07</strong>
+            <span>{lang === 'en' ? 'years of journey' : 'años de trayectoria'}</span>
+          </div>
+        </div>
       </Section>
 
-      <Section className={styles.timeline}>
-        <div className={styles.timelineInner}>
+      <Section className={styles.timelineSection}>
+        <div className={styles.timeline}>
           {experiences.map((exp, index) => (
-            <ExperienceItem key={exp.id} {...exp} index={index} />
+            <ExperienceCard
+              key={exp.id}
+              exp={exp}
+              index={index}
+              reduceMotion={reduceMotion}
+              onOpen={setSelected}
+              lang={lang}
+            />
           ))}
         </div>
       </Section>
 
+      <AnimatePresence>
+        {selectedExp && (
+          <ExperienceModal
+            exp={selectedExp}
+            lang={lang}
+            reduceMotion={reduceMotion}
+            onClose={handleClose}
+          />
+        )}
+      </AnimatePresence>
+
       <Footer />
     </article>
-  );
-}
-
-function Barcode({ className }) {
-  return (
-    <svg
-      className={className}
-      width="153"
-      height="20"
-      fill="currentColor"
-      viewBox="0 0 153 20"
-    >
-      <path
-        fillOpacity=".6"
-        d="M153 0v20h-2V0h2Zm-4 0v20h-4V0h4Zm-6 0v20h-2V0h2Zm-4 4v3h-2V4h2Zm-5 0V0h3v4h-3Zm-2 0h2v6h-2V4Zm0 0h-2V0h2v4Zm-4-4v4h-4v5h-2v4h-5V9h3V6h-5V0h13Zm-11 13v3h-2v-3h2Zm-4-13v6h-2v4h2v4h-2v2h2v4h-4V0h4Zm-6 4V0h-2v4h2Zm-1 6V7h-4V4h-2V0h-2v4h-2V0H86v4h-2v3h-2v2h-2v4h6v3h-2v4h6v-4h-2v-3h-2V9h-2V7h4V4h3v9h2v7h7v-4h-5v-3h-2V9h2V7h3v3h2v4h6v-4ZM74 7v3h-2v2h2v8h-4V0h8v5h-3V4h-3v3h2Zm28 13h4v-4h-4v4Zm28-6v-4h-2v6h2v4h2v-6h-2Zm9 2v-6h-2v6h-2v4h4v-4Zm-12 4v-4h-4v4h4ZM0 20h2V0H0v20Zm4 0h4V0H4v20Zm6 0h2V0h-2v20Zm5 0h7V0h-7v20Zm12 0h-3V0h3v20Zm5 0h3v-4h5v-6h-5V6h7V3h3V0h-7v3h-3V0h-3v20ZM52 3v3h-3v3h-4V6h1V3h6Zm23 13h6v4h-6v-4Zm-29-6v3h3v-3h3v3h-2v6h-3v-3h-2v-3h-2v-3h3Zm8 6v3h-2v-3h2Zm3 0v3h2v-3h2v-3h-2v3h-2Zm0 0v-6h-3v6h3Zm4-7V6h2V0h-2v6h-2v3h2Zm5-3v3h-2V6h2Zm2 0h-2V3h2v3Zm-9-3V0h-2v3h2Z"
-      />
-    </svg>
   );
 }

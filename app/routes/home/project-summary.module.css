@@ -221,6 +221,10 @@
 
 .title {
   margin-bottom: var(--spaceL);
+  font-family: 'Goldman', var(--fontStack);
+  font-size: calc(var(--fontSizeH3) + 0.18rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
   transition-property: opacity;
   transition-timing-function: var(--bezierFastoutSlowin);
   transition-duration: var(--durationXL);

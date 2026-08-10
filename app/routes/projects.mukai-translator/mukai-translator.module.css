@@ -1,0 +1,177 @@
+.project,
+.workflowTheme {
+  --primary: oklch(70% 0.23 12);
+  --accent: oklch(70% 0.23 12);
+  --imageTransitionColor: oklch(63% 0.24 12);
+}
+
+:global([data-theme='light']) .project {
+  --primary: oklch(56% 0.24 12);
+  --accent: oklch(56% 0.24 12);
+}
+
+.workflowTheme {
+  width: 100%;
+}
+
+.headerDetails {
+  transform: translateX(calc(var(--space2XL) * -1));
+
+  & p {
+    text-align: justify;
+    text-align-last: left;
+  }
+
+  @media (--mediaTablet) {
+    transform: none;
+  }
+
+  @media (--mediaMobile) {
+    & p {
+      text-align: left;
+    }
+  }
+}
+
+.sectionCopy {
+  width: 100%;
+  align-items: center;
+
+  & > h2 {
+    width: 100%;
+    text-align: center;
+  }
+
+  & > p {
+    width: 100%;
+    text-align: justify;
+    text-align-last: left;
+  }
+}
+
+.sectionCopy > .centeredJustifiedText {
+  text-align-last: center;
+  hyphens: none;
+  -webkit-hyphens: none;
+  word-break: normal;
+  overflow-wrap: normal;
+  white-space: normal;
+}
+
+.workflowText {
+  line-height: 1.7;
+}
+
+.video {
+  width: 120%;
+  aspect-ratio: 1280 / 800;
+
+  & > div,
+  & video {
+    height: 100%;
+  }
+
+  & video {
+    display: block;
+    object-fit: cover;
+  }
+
+  @media (--mediaLaptop) {
+    width: 150%;
+  }
+
+  @media (--mediaTablet) {
+    width: 100%;
+  }
+}
+
+.starsBackground,
+.starsBackground > div {
+  width: 100%;
+  height: 100%;
+}
+
+.starsBackgroundFrame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.starsBackground img {
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.58) saturate(0.95);
+}
+
+.toolsText {
+  width: 100%;
+  position: relative;
+  right: var(--spaceL);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  @media (--mediaTablet) {
+    right: 0;
+  }
+}
+
+.toolsImage {
+  width: 100%;
+  max-width: 577px;
+  justify-self: center;
+  left: var(--spaceL);
+
+  @media (--mediaTablet) {
+    left: 0;
+    margin-top: 60px;
+  }
+
+  @media (--mediaMobile) {
+    margin-top: 40px;
+  }
+}
+
+.capabilitiesColumns {
+  align-items: start;
+  column-gap: var(--space5XL);
+
+  @media (--mediaLaptop) {
+    column-gap: var(--space4XL);
+  }
+
+  @media (--mediaTablet) {
+    row-gap: var(--space4XL);
+  }
+}
+
+.capabilityItem {
+  gap: var(--space2XL);
+  padding-bottom: 0;
+}
+
+.formatsItem {
+  position: relative;
+  right: var(--spaceL);
+  gap: var(--space2XL);
+  padding-bottom: 0;
+
+  @media (--mediaTablet) {
+    right: 0;
+  }
+}
+
+.capabilityImage {
+  width: 100%;
+  aspect-ratio: 746 / 692;
+
+  & > div,
+  & img {
+    height: 100%;
+  }
+
+  & img {
+    display: block;
+    object-fit: cover;
+  }
+}

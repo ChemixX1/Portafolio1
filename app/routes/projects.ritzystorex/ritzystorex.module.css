@@ -1,0 +1,47 @@
+.project {
+  --primary: oklch(72% 0.24 326);
+  --accent: oklch(72% 0.24 326);
+  --imageTransitionColor: oklch(62% 0.25 326);
+}
+
+:global([data-theme='light']) .project {
+  --primary: oklch(50% 0.23 318);
+  --accent: oklch(50% 0.23 318);
+}
+
+.textSection {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.objectiveMedia {
+  width: 80%;
+  max-width: 520px;
+  justify-self: center;
+
+  @media (--mediaTablet) {
+    margin-top: 56px;
+  }
+
+  @media (--mediaMobile) {
+    width: 100%;
+    margin-top: 40px;
+  }
+}
+
+.resultSection {
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: var(--zIndex1);
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 2px;
+    background: var(--background);
+    pointer-events: none;
+  }
+}

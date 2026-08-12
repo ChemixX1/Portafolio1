@@ -1,4 +1,5 @@
-import profileImg from '~/assets/home/profile.png';
+import profileImg from '~/assets/home/profile.webp';
+import profilePlaceholder from '~/assets/home/profile-placeholder.webp';
 import { Button } from '~/components/button';
 import { DecoderText } from '~/components/decoder-text';
 import { Divider } from '~/components/divider';
@@ -104,8 +105,8 @@ export const Profile = ({ id, visible, sectionRef }) => {
                 <Image
                   reveal
                   delay={100}
-                  placeholder={profileImg}
-                  srcSet={`${profileImg} 480w, ${profileImg} 960w`}
+                  placeholder={profilePlaceholder}
+                  srcSet={`${profileImg} 960w`}
                   width={960}
                   height={1280}
                   sizes={`(max-width: ${media.mobile}px) 100vw, 480px`}

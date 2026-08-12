@@ -1,7 +1,7 @@
-import logoGobiernoRegional from '~/assets/experience/logo-gobierno-regional.png';
-import logoChincheros from '~/assets/experience/logo-chincheros.png';
-import logoAndahuaylas from '~/assets/experience/logo-andahuaylas.png';
-import logoProcompite from '~/assets/experience/logo-procompite.png';
+import logoGobiernoRegional from '~/assets/experience/logo-gobierno-regional.webp';
+import logoChincheros from '~/assets/experience/logo-chincheros.webp';
+import logoAndahuaylas from '~/assets/experience/logo-andahuaylas.webp';
+import logoProcompite from '~/assets/experience/logo-procompite.webp';
 import { Button } from '~/components/button';
 import { Footer } from '~/components/footer';
 import { Heading } from '~/components/heading';

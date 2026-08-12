@@ -1,1 +1,5 @@
-export { Contact as default, meta, loader } from './contact';
+import { loadContactData } from './contact.server';
+
+export { Contact as default, meta } from './contact';
+
+export const loader = loadContactData;

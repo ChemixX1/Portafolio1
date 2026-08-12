@@ -73,9 +73,9 @@ export function RitzyStoreX() {
               raised
               transitionKey={theme}
               src={ritzyLanding}
-              srcSet={`${ritzyLandingLarge} 1893w`}
-              width={1893}
-              height={1019}
+              srcSet={`${ritzyLandingLarge} 1908w`}
+              width={1908}
+              height={1092}
               placeholder={ritzyLandingPlaceholder}
               alt="Portada de RitzyStoreX con su propuesta de servicios digitales y accesos principales."
               sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 100vw, 1100px`}
@@ -126,9 +126,9 @@ export function RitzyStoreX() {
               raised
               transitionKey={theme}
               src={ritzyStoreCatalog}
-              srcSet={`${ritzyStoreCatalogLarge} 1893w`}
-              width={1893}
-              height={1052}
+              srcSet={`${ritzyStoreCatalogLarge} 1907w`}
+              width={1907}
+              height={1091}
               placeholder={ritzyStoreCatalogPlaceholder}
               alt="Catalogo de RitzyStoreX con buscador, filtros y tarjetas de servicios digitales."
               sizes="100vw"

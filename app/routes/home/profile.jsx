@@ -26,9 +26,10 @@ const ProfileText = ({ visible, titleId, lang }) => (
     {lang === 'en' ? (
       <>
         <Text className={styles.description} data-visible={visible} size="l" as="p">
-          I’m Jose Manuel Mejia Medina, 22 years old, living in Lima, Peru. I’m a web
-          developer passionate about UI/UX design, animations, and creating memorable
-          digital experiences. Check out the tools I use on my{' '}
+          I’m Jose Manuel Mejia Medina, 22 years old, living in Lima, Peru. I’m a developer
+          in training, passionate about UI/UX design and building software
+          tools that automate processes and simplify everyday work. Check out the tools I
+          use on my{' '}
           <Link href="/uses">tools page</Link>.
         </Text>
         <Text className={styles.description} data-visible={visible} size="l" as="p">
@@ -40,10 +41,11 @@ const ProfileText = ({ visible, titleId, lang }) => (
     ) : (
       <>
         <Text className={styles.description} data-visible={visible} size="l" as="p">
-          Soy Jose Manuel Mejia Medina, tengo 22 años y vivo en Lima, Perú. Soy
-          desarrollador web apasionado por el diseño UI/UX, las animaciones y la creación
-          de experiencias digitales memorables. Si quieres conocer las herramientas que
-          uso, visita mi <Link href="/uses">página de herramientas</Link>.
+          Soy Jose Manuel Mejia Medina, tengo 22 años y vivo en Lima, Perú. Soy un
+          desarrollador en formación, apasionado por el diseño UI/UX y por crear
+          herramientas de software que ayuden a automatizar procesos y simplificar el
+          trabajo cotidiano. Si quieres conocer las herramientas que uso, visita mi{' '}
+          <Link href="/uses">página de herramientas</Link>.
         </Text>
         <Text className={styles.description} data-visible={visible} size="l" as="p">
           En mi tiempo libre me gusta explorar nuevas tecnologías y crear proyectos

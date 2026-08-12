@@ -8,6 +8,8 @@ import { resolveSrcFromSrcSet } from '~/utils/image';
 import { classes, cssProps, numToMs } from '~/utils/style';
 import styles from './image.module.css';
 
+const preloadViewportOptions = { rootMargin: '400px 0px' };
+
 export const Image = ({
   className,
   style,
@@ -25,6 +27,7 @@ export const Image = ({
   const containerRef = useRef();
   const src = baseSrc || srcSet.split(' ')[0];
   const inViewport = useInViewport(containerRef, !getIsVideo(src));
+  const shouldLoad = useInViewport(containerRef, true, preloadViewportOptions);
 
   const onLoad = useCallback(() => {
     setLoaded(true);
@@ -45,6 +48,7 @@ export const Image = ({
         onLoad={onLoad}
         loaded={loaded}
         inViewport={inViewport}
+        shouldLoad={shouldLoad}
         reveal={reveal}
         src={src}
         srcSet={srcSet}
@@ -62,6 +66,7 @@ const ImageElements = ({
   onLoad,
   loaded,
   inViewport,
+  shouldLoad,
   srcSet,
   placeholder,
   delay,
@@ -87,10 +92,12 @@ const ImageElements = ({
   const placeholderRef = useRef();
   const videoRef = useRef();
   const isVideo = getIsVideo(src);
-  const showFullRes = inViewport;
+  const showFullRes = shouldLoad;
   const hasMounted = useHasMounted();
 
   useEffect(() => {
+    if (isVideo && !shouldLoad && !sound) return;
+
     const resolveVideoSrc = async () => {
       const resolvedVideoSrc = await resolveSrcFromSrcSet({ srcSet, sizes });
       setVideoSrc(resolvedVideoSrc);
@@ -101,7 +108,7 @@ const ImageElements = ({
     } else if (isVideo) {
       setVideoSrc(src);
     }
-  }, [isVideo, sizes, src, srcSet]);
+  }, [isVideo, shouldLoad, sizes, sound, src, srcSet]);
 
   useEffect(() => {
     if (!videoRef.current || !videoSrc) return;
@@ -194,11 +201,12 @@ const ImageElements = ({
             muted={!sound || !audioEnabled}
             loop
             playsInline
+            preload="metadata"
             className={styles.element}
             data-loaded={loaded}
             data-cover={cover}
             autoPlay={!reduceMotion}
-            onLoadStart={onLoad}
+            onLoadedData={onLoad}
             src={videoSrc}
             aria-label={alt}
             ref={videoRef}

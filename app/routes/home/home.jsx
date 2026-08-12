@@ -1,7 +1,11 @@
 import mukaiTranslatorTexture from '~/assets/home/mukai-translator-laptop.png';
 import mukaiWeb1Texture from '~/assets/home/mangamukai-phone-1.png';
 import mukaiWeb2Texture from '~/assets/home/mangamukai-phone-2.png';
-import ritzyLandingTexture from '~/assets/projects/ritzystorex/landing.png';
+import mukaiHomeVideo from '~/assets/projects/mangamukai/home-showcase.mp4';
+import mukaiReaderVideo from '~/assets/projects/mangamukai/reader-showcase.mp4';
+import ritzyLandingPlaceholder from '~/assets/projects/ritzystorex/landing-placeholder.png';
+import ritzyLandingTexture from '~/assets/projects/ritzystorex/landing.webp';
+import ritzyMockupVideo from '~/assets/projects/ritzystorex/RitzyMockUp-optimized.mp4';
 import { Footer } from '~/components/footer';
 import { baseMeta } from '~/utils/meta';
 import { Intro } from './intro';
@@ -150,10 +154,12 @@ export const Home = () => {
           alt: 'MangaMukai plataforma de lectura de manga',
           textures: [
             {
+              video: mukaiHomeVideo,
               srcSet: `${mukaiWeb1Texture} 375w, ${mukaiWeb1Texture} 750w`,
               placeholder: mukaiWeb1Texture,
             },
             {
+              video: mukaiReaderVideo,
               srcSet: `${mukaiWeb2Texture} 375w, ${mukaiWeb2Texture} 750w`,
               placeholder: mukaiWeb2Texture,
             },
@@ -174,8 +180,10 @@ export const Home = () => {
           alt: 'RitzyStoreX landing page de servicios de streaming',
           textures: [
             {
-              srcSet: `${ritzyLandingTexture} 800w, ${ritzyLandingTexture} 1920w`,
-              placeholder: ritzyLandingTexture,
+              video: ritzyMockupVideo,
+              crop: true,
+              srcSet: `${ritzyLandingTexture} 1100w`,
+              placeholder: ritzyLandingPlaceholder,
             },
           ],
         }}

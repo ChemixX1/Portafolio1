@@ -77,6 +77,13 @@
   }
 }
 
+@media (min-width: 1041px) {
+  .showcaseSection {
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
 .deviceStage {
   position: relative;
   isolation: isolate;

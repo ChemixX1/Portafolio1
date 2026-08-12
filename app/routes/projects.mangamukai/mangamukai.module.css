@@ -29,6 +29,10 @@
   grid-column: 1;
   grid-row: 1;
   align-items: center;
+
+  @media (--mediaMobile) {
+    grid-row: 2;
+  }
 }
 
 .slideshow {
@@ -63,6 +67,11 @@
 
   @media (--mediaTablet) {
     padding-top: 0;
+  }
+
+  @media (--mediaMobile) {
+    grid-column: 1;
+    grid-row: 1;
   }
 }
 

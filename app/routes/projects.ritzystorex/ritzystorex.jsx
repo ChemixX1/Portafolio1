@@ -1,11 +1,11 @@
 import ritzyBackground from '~/assets/projects/ritzystorex/hero.jpg';
 import ritzyBackgroundLarge from '~/assets/projects/ritzystorex/hero-large.jpg';
 import ritzyBackgroundPlaceholder from '~/assets/projects/ritzystorex/hero-placeholder.jpg';
-import ritzyLanding from '~/assets/projects/ritzystorex/landing.png';
-import ritzyLandingLarge from '~/assets/projects/ritzystorex/landing-large.png';
+import ritzyLanding from '~/assets/projects/ritzystorex/landing.webp';
+import ritzyLandingLarge from '~/assets/projects/ritzystorex/landing-large.webp';
 import ritzyLandingPlaceholder from '~/assets/projects/ritzystorex/landing-placeholder.png';
-import ritzyStoreCatalog from '~/assets/projects/ritzystorex/catalog.png';
-import ritzyStoreCatalogLarge from '~/assets/projects/ritzystorex/catalog-large.png';
+import ritzyStoreCatalog from '~/assets/projects/ritzystorex/catalog.webp';
+import ritzyStoreCatalogLarge from '~/assets/projects/ritzystorex/catalog-large.webp';
 import ritzyStoreCatalogPlaceholder from '~/assets/projects/ritzystorex/catalog-placeholder.png';
 import ritzyStoreVideo from '~/assets/projects/ritzystorex/showcase.mp4';
 import ritzyGengar from '~/assets/projects/ritzystorex/result-background.jpg';
@@ -64,7 +64,7 @@ export function RitzyStoreX() {
           title={title}
           description={description}
           linkLabel="Visitar RitzyStoreX"
-          url="https://ritzystorex.com/"
+          url="https://ritzy-storex.vercel.app/"
           roles={roles}
         />
         <ProjectSection padding="top">
@@ -73,7 +73,7 @@ export function RitzyStoreX() {
               raised
               transitionKey={theme}
               src={ritzyLanding}
-              srcSet={`${ritzyLandingLarge} 1908w`}
+              srcSet={`${ritzyLanding} 1100w, ${ritzyLandingLarge} 1908w`}
               width={1908}
               height={1092}
               placeholder={ritzyLandingPlaceholder}
@@ -103,9 +103,9 @@ export function RitzyStoreX() {
               raised
               transitionKey={theme}
               className={styles.objectiveMedia}
-              srcSet={`${ritzyStoreVideo} 1920w`}
-              width={1920}
-              height={1080}
+              srcSet={`${ritzyStoreVideo} 450w`}
+              width={450}
+              height={948}
               alt="Demostración en video de la experiencia y el catálogo de RitzyStoreX."
               sizes={`(max-width: ${media.tablet}px) 100vw, 50vw`}
             />
@@ -126,7 +126,7 @@ export function RitzyStoreX() {
               raised
               transitionKey={theme}
               src={ritzyStoreCatalog}
-              srcSet={`${ritzyStoreCatalogLarge} 1907w`}
+              srcSet={`${ritzyStoreCatalog} 1100w, ${ritzyStoreCatalogLarge} 1907w`}
               width={1907}
               height={1091}
               placeholder={ritzyStoreCatalogPlaceholder}
@@ -164,7 +164,7 @@ export function RitzyStoreX() {
                 secondary
                 iconHoverShift
                 icon="chevron-right"
-                href="https://ritzystorex.com/"
+                href="https://ritzy-storex.vercel.app/"
               >
                 Visitar RitzyStoreX
               </Button>

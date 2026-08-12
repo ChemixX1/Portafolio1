@@ -24,6 +24,7 @@ import {
   Scene,
   ShaderMaterial,
   Vector3,
+  VideoTexture,
   WebGLRenderTarget,
   WebGLRenderer,
 } from 'three';
@@ -87,6 +88,7 @@ export const Model = ({
   const reduceMotion = useReducedMotion();
   const rotationX = useSpring(0, rotationSpringConfig);
   const rotationY = useSpring(0, rotationSpringConfig);
+  const hasVideoTexture = models.some(model => model.texture.video);
 
   useEffect(() => {
     const { clientWidth, clientHeight } = container.current;
@@ -324,6 +326,21 @@ export const Model = ({
     };
   }, [renderFrame]);
 
+  // Video textures only advance when the WebGL scene is rendered. Keep the
+  // render loop scoped to a visible model so off-screen projects cost nothing.
+  useEffect(() => {
+    if (!hasVideoTexture || !loaded || !isInViewport || reduceMotion) return;
+
+    let frameId;
+    const renderVideoFrame = () => {
+      renderFrame();
+      frameId = requestAnimationFrame(renderVideoFrame);
+    };
+
+    renderVideoFrame();
+    return () => cancelAnimationFrame(frameId);
+  }, [hasVideoTexture, isInViewport, loaded, reduceMotion, renderFrame]);
+
   return (
     <div
       className={classes(styles.model, className)}
@@ -346,6 +363,7 @@ export const Model = ({
           index={index}
           setLoaded={setLoaded}
           onLoad={onLoad}
+          active={isInViewport && !reduceMotion}
           model={model}
         />
       ))}
@@ -362,11 +380,26 @@ const Device = ({
   showDelay,
   setLoaded,
   onLoad,
+  active,
   show,
 }) => {
   const [loadDevice, setLoadDevice] = useState();
   const reduceMotion = useReducedMotion();
   const placeholderScreen = createRef();
+  const videoElement = useRef();
+  const activeRef = useRef(active);
+
+  useEffect(() => {
+    activeRef.current = active;
+    const video = videoElement.current;
+    if (!video) return;
+
+    if (active) {
+      video.play()?.catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [active, loadDevice]);
 
   useEffect(() => {
     const applyScreenTexture = async (texture, node) => {
@@ -381,6 +414,44 @@ const Device = ({
       node.material.color = new Color(0xffffff);
       node.material.transparent = true;
       node.material.map = texture;
+    };
+
+    const cropTextureToScreen = (texture, sourceWidth, sourceHeight, model) => {
+      const sourceAspect = sourceWidth / sourceHeight;
+      const screenAspect = model.width / model.height;
+
+      if (sourceAspect > screenAspect) {
+        texture.repeat.x = screenAspect / sourceAspect;
+        texture.offset.x = (1 - texture.repeat.x) / 2;
+      } else if (sourceAspect < screenAspect) {
+        texture.repeat.y = sourceAspect / screenAspect;
+        texture.offset.y = (1 - texture.repeat.y) / 2;
+      }
+    };
+
+    const loadVideoTexture = async (url, model) => {
+      const video = document.createElement('video');
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.preload = 'metadata';
+      video.src = url;
+      videoElement.current = video;
+
+      await new Promise((resolve, reject) => {
+        video.addEventListener('loadeddata', resolve, { once: true });
+        video.addEventListener('error', reject, { once: true });
+        video.load();
+      });
+
+      const videoTexture = new VideoTexture(video);
+      if (model.texture.crop) {
+        cropTextureToScreen(videoTexture, video.videoWidth, video.videoHeight, model);
+      }
+      if (activeRef.current) {
+        video.play()?.catch(() => {});
+      }
+      return videoTexture;
     };
 
     // Generate promises to await when ready
@@ -413,8 +484,9 @@ const Device = ({
           applyScreenTexture(placeholder, placeholderScreen.current);
 
           loadFullResTexture = async () => {
-            const image = await resolveSrcFromSrcSet(texture);
-            const fullSize = await textureLoader.loadAsync(image);
+            const fullSize = texture.video && !reduceMotion
+              ? await loadVideoTexture(texture.video, model)
+              : await textureLoader.loadAsync(await resolveSrcFromSrcSet(texture));
             await applyScreenTexture(fullSize, node);
 
             animate(1, 0, {
@@ -522,6 +594,10 @@ const Device = ({
 
     return () => {
       animation?.stop();
+      videoElement.current?.pause();
+      videoElement.current?.removeAttribute('src');
+      videoElement.current?.load();
+      videoElement.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadDevice, show]);
